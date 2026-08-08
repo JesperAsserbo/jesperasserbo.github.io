@@ -1,3 +1,4 @@
+/*
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -38,3 +39,4 @@ function tegn() {
 window.addEventListener("resize", tilpasCanvas);
 
 tilpasCanvas();
+*/
