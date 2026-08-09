@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <title>Jespers Værktøjskasse</title>
+    <title>Jespers Toolbox</title>
     <link rel="stylesheet" href="assets/css/main.css">
+
+
 </head>
 
 <header>
@@ -13,42 +15,96 @@
     </p>
 </header>
 
+<script src="assets/js/main.js"></script>
+
+<body>
+
 <main>
 
-    <section class="kort-container">
+<section class="kort-container">
 
-        <a href="programmer/program_wallStability/index.html" class="kort">
-            <h2>Static calculation</h2>
-            <img src="assets/billeder/GitHub_wallStability.jpg" alt="" class="kort-billede">
-            <p>Wall Stability</p>
-        </a>
+    <a href="programmer/program_wallStability/index.html" class="kort program-link">
+        <h2>Static calculation</h2>
+        <img src="assets/billeder/GitHub_wallStability.jpg"
+             alt=""
+             class="kort-billede">
+        <p>Wall Stability</p>
+    </a>
 
-        <a href="programmer/program_test/index.html" class="kort">
-            <h2>Static calculation</h2>
-            <img src="assets/billeder/GitHub_boltGroup.jpg" alt="" class="kort-billede">
-            <p>Boltgroup forces</p>
-        </a>
+    <a href="programmer/program_boltGroup_Forces/index.html" class="kort program-link">
+        <h2>Static calculation</h2>
+        <img src="assets/billeder/GitHub_boltGroup.jpg"
+             alt=""
+             class="kort-billede">
+        <p>Boltgroup forces</p>
+    </a>
 
-        <a href="programmer/program3/index.html" class="kort">
-            <h2>Static calculation</h2>
-            <img src="assets/billeder/GitHub_whileWeWait.jpg" alt="" class="kort-billede">
-            <p>......more to come</p>
-        </a>
+    <div class="kort">
+        <h2>Static calculation</h2>
+        <img src="assets/billeder/GitHub_whileWeWait.jpg"
+             alt=""
+             class="kort-billede">
+        <p>......more to come</p>
+    </div>
 
-    </section>
+</section>
 
 </main>
 
+
 <section class="ansvarsfraskrivelse" id="disclaimer">
+
     <h3>* Educational and non-professional use only</h3>
+
     <p>
-        These interactive tools for structural calculations are provided
-        for study and educational purposes only. They are not intended for
-        professional engineering or use in the design, construction, or
+        The tools and calculations provided on this website are intended
+        solely for educational, illustrative and study purposes.
+    </p>
+
+    <p>
+        They are not intended for professional engineering, structural
+        design, construction, inspection, approval, certification or
         verification of real structures.
     </p>
+
+    <p>
+        The results produced by these tools are not to be relied upon as
+        a substitute for calculations, assessments or advice from a
+        qualified and appropriately licensed professional engineer.
+    </p>
+
+    <p>
+        No representation or warranty is made regarding the accuracy,
+        completeness, reliability or suitability of the calculations,
+        methods, assumptions or results provided by these tools.
+    </p>
+
+    <p>
+        The user is solely responsible for independently verifying any
+        information or calculation before using it for any purpose.
+    </p>
+
+    <p>
+        <strong>
+            Do not use the results from these tools as the basis for
+            decisions concerning the safety, design, construction or
+            modification of real structures.
+        </strong>
+    </p>
+
+    <label class="disclaimer-check">
+        <input type="checkbox" id="disclaimerCheck">
+
+        I have read and understood the disclaimer above and agree to use
+        these tools solely for educational and study purposes. I will
+        not use their results for the design, construction, inspection,
+        approval, certification or verification of real structures.
+    </label>
+
 </section>
+
 
 <footer>
     © Jespers Toolbox
 </footer>
+</body>

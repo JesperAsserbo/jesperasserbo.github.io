@@ -1,31 +1,61 @@
 <!DOCTYPE html>
 <html lang="da">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Program 1 - Jespers Værktøjskasse</title>
 
-    <link rel="stylesheet" href="../../assets/css/main.css">
+    <title>Wall Stability</title>
+
+    <link rel="stylesheet" href="../../assets/css/program.css">
+
+    <!-- p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/addons/p5.sound.min.js"></script>
 </head>
 
 <body>
 
-<header>
-    <h1>Program 1</h1>
-    <p>Mit første program</p>
+<header class="program-header">
+
+    <a href="../../index.html" class="tilbage-knap">
+        ← Jespers Toolbox
+    </a>
+
+    <div class="program-title">
+
+        <h1>Wall Stability</h1>
+
+        <div class="program-warning">
+            EDUCATIONAL / ILLUSTRATIVE USE ONLY
+            <br>
+            NOT FOR STRUCTURAL DESIGN
+        </div>
+
+    </div>
+
 </header>
 
-<main>
-    <h2>Her kommer programmet</h2>
+    <main class="program-container">
+        <div id="programvindue">
+            <!-- Her kører selve programmet -->
+            <div id="canvas-container"></div>
+        </div>
+    </main>
 
-    <button onclick="alert('Program 1 virker!')">
-        Test program
-    </button>
 
-    <br><br>
-
-    <a href="../../index.html">← Tilbage til forsiden</a>
-</main>
+    <!-- Programmets JavaScript -->
+     <script src="sketch.js"></script>
+    <script src="paper.js"></script>
+    <script src="wallElement.js"></script>
+    <script src="loadHorisontal.js"></script>
+    <script src="loadVertical.js"></script>
+    <script src="changeSystem.js"></script>
+    <script src="graph.js"></script>
+    <script src="button.js"></script>
+    <script src="buttonRollor.js"></script>
+    <script src="buttonCiffer.js"></script>
+    <script src="table.js"></script>
 
 </body>
 </html>

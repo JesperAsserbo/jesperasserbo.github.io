@@ -60,7 +60,16 @@ let T1 = new p5.Vector(0, 0); //**ScaleFactor (svarer til translation tilbage ti
 let startPan = new p5.Vector(0, 0);
 
 function setup() {
-  createCanvas(windowWidth - 10, windowHeight - 10);
+  //createCanvas(windowWidth - 10, windowHeight - 10);
+
+  //** GitHub setUp - Start */
+  let canvas = createCanvas(
+    document.getElementById("programvindue").clientWidth,
+    document.getElementById("programvindue").clientHeight
+  );
+
+  canvas.parent("programvindue");
+  //** GitHub setUp - End */
 
   graph = new Graph(500, 1750);
   system = new System();
@@ -477,8 +486,8 @@ function draw() {
   //**Display TimePerFrame
   let timePerFrame = millis() - timeReal;
   timeReal = millis();
-  text(nf(timePerFrame, 0, 0), 100, 20);
-  text(nf(millis(), 0, 0), 100, 32);
+  //text(nf(timePerFrame, 0, 0), 100, 20);
+  //text(nf(millis(), 0, 0), 100, 32);
 
   //**StopOfLoop if too long time
   if (timePerFrame > 2000) noLoop();

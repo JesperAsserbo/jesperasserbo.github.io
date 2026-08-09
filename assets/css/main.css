@@ -50,11 +50,11 @@ header p sup a {
 }
 
 .kort {
-    background: rgb(250, 250, 250);
+    background: rgb(245, 245, 245);
     border-radius: 15px;
     padding: 30px;
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.50);
     cursor: pointer;
     transition: transform 0.2s;
     text-decoration: none;
@@ -69,6 +69,7 @@ header p sup a {
     font-size: 50px;
 }
 
+/*
 .ansvarsfraskrivelse {
     max-width: 800px;
     margin: 40px auto 20px;
@@ -86,12 +87,59 @@ header p sup a {
 .ansvarsfraskrivelse p {
     margin: 0;
     line-height: 1.5;
-}
+}*/
 
 footer {
     text-align: center;
     padding: 30px;
     color: #666;
+}
+
+/* --------------------------------
+   ANSVARSFRASKRIVELSE
+-------------------------------- */
+
+.ansvarsfraskrivelse {
+    max-width: 900px;
+    margin: 50px auto 30px;
+    padding: 25px;
+    border-top: 1px solid #ccc;
+
+    text-align: left;
+    font-size: 0.85em;
+    line-height: 1.5;
+}
+
+.ansvarsfraskrivelse h3 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.ansvarsfraskrivelse p {
+    margin-bottom: 10px;
+}
+
+.disclaimer-check {
+    display: block;
+    margin-top: 20px;
+    padding: 15px;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.disclaimer-check input {
+    margin-right: 8px;
+}
+
+
+/* --------------------------------
+   LÅSTE PROGRAMMER
+-------------------------------- */
+
+.program-link.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
 }
 
 
