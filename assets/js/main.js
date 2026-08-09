@@ -3,19 +3,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const disclaimerCheck = document.getElementById("disclaimerCheck");
     const programLinks = document.querySelectorAll(".program-link");
+    const watermarks = document.querySelectorAll(".disclaimer-watermark");
 
-    function opdaterProgrammer() {
+function opdaterProgrammer() {
 
-        programLinks.forEach(function (program) {
+    programLinks.forEach(function (program) {
 
-            if (disclaimerCheck.checked) {
-                program.classList.remove("disabled");
-            } else {
-                program.classList.add("disabled");
+        const watermark = program.querySelector(".disclaimer-watermark");
+
+        if (disclaimerCheck.checked) {
+
+            program.classList.remove("disabled");
+
+            if (watermark) {
+                watermark.style.display = "none";
             }
 
-        });
-    }
+        } else {
+
+            program.classList.add("disabled");
+
+            if (watermark) {
+                watermark.style.display = "block";
+            }
+        }
+
+    });
+}
 
 
     programLinks.forEach(function (program) {
