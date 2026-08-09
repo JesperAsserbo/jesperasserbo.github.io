@@ -120,18 +120,22 @@ footer {
 }
 
 .disclaimer-check {
-    display: block;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
     margin-top: 20px;
     padding: 15px;
 
+    text-align: left;
     font-weight: bold;
     cursor: pointer;
 }
 
 .disclaimer-check input {
-    margin-right: 8px;
+    flex-shrink: 0;
+    margin: 3px 10px 0 0;
 }
-
 
 /* --------------------------------
    LÅSTE PROGRAMMER
