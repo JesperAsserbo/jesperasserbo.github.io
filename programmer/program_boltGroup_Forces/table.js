@@ -65,6 +65,7 @@ class Table {
     if (this.insertPointSupportLog) {
       this.insertPointTabelSupport.x = pos.x;
       this.insertPointTabelSupport.y = pos.y;
+      movingObject = true; //** Flag Pan
     }
   }
 

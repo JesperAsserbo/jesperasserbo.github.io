@@ -32,12 +32,12 @@ class Plate {
     this.edge[8][1] = this.edge[0][1];
   }
 
-  FindXY_Max(){
+  FindXY_Max() {
     this.xMax = 0;
     this.yMax = 0;
-    for(let i=0;i <this.edge.length-1; i++){
-      if(this.edge[i][0]>this.xMax) this.xMax = this.edge[i][0];
-      if(this.edge[i][1]>this.yMax) this.yMax = this.edge[i][1];
+    for (let i = 0; i < this.edge.length - 1; i++) {
+      if (this.edge[i][0] > this.xMax) this.xMax = this.edge[i][0];
+      if (this.edge[i][1] > this.yMax) this.yMax = this.edge[i][1];
     }
 
     //console.log("xMax " + this.xMax + " yMax " + this.yMax)
@@ -83,8 +83,6 @@ class Plate {
   }
 
   OverlapEdgePoint(pos) {
-
-    
     if (this.edgePointLocked != null) return;
     if (system.logLoad) return;
     if (system.logBoltId != null) return;
@@ -94,15 +92,18 @@ class Plate {
 
       if (distToPoint < 20) {
         //** Highligth if overlapped
-    push();
-    noStroke();
-    fill(0, 255, 0, 100);
-    circle(this.edge[i][0], this.edge[i][1], 50);
-    pop();
-        
+        push();
+        noStroke();
+        fill(0, 255, 0, 100);
+        circle(this.edge[i][0], this.edge[i][1], 50);
+        pop();
+
         //** Lock point
-        if (mouseIsPressed) this.edgePointLocked = i;
-        
+        if (mouseIsPressed) {
+          this.edgePointLocked = i;
+          movingObject = true; //** Flag Pan
+        }
+
         break;
       } else {
         this.edgePointLocked = null;
@@ -112,14 +113,17 @@ class Plate {
     //console.log(this.edgePointLocked);
   }
 
-
   //** called from sketch
-    HighligthEdgePoint() {
-      if (this.edgePointLocked == null) return;
+  HighligthEdgePoint() {
+    if (this.edgePointLocked == null) return;
     push();
     noStroke();
     fill(0, 255, 0, 100);
-    circle(this.edge[this.edgePointLocked][0], this.edge[this.edgePointLocked][1], 50);
+    circle(
+      this.edge[this.edgePointLocked][0],
+      this.edge[this.edgePointLocked][1],
+      50
+    );
     pop();
   }
 

@@ -52,6 +52,7 @@ let mousePosScreen = new p5.Vector(0, 0);
 let mousePosWorld = new p5.Vector(0, 0);
 let mousePosWorldPre = new p5.Vector(0, 0);
 let scaleFactorStep = 1.1; // [1;xx] 1 = ingen scale, 2 = dobbelt/halvering
+let movingObject = false; //** flag used in pan
 
 let S = new p5.Vector(0.5, 0.5); //**ScaleFactor
 let T = new p5.Vector(0, 0);
@@ -62,14 +63,16 @@ let startPan = new p5.Vector(0, 0);
 function setup() {
   //createCanvas(windowWidth - 10, windowHeight - 10);
 
-  //** GitHub setUp - Start */
+  
+    //** GitHub setUp - Start 
   let canvas = createCanvas(
     document.getElementById("programvindue").clientWidth,
     document.getElementById("programvindue").clientHeight
   );
 
   canvas.parent("programvindue");
-  //** GitHub setUp - End */
+  //** GitHub setUp - End 
+  
 
   graph = new Graph(500, 1750);
   system = new System();
@@ -172,7 +175,7 @@ function setup() {
 
   boltGroup.push(new Bolt(25, 25, 0));
   boltGroup.push(new Bolt(60, 25, 1));
-    boltGroup.push(new Bolt(25, 60,2));
+  boltGroup.push(new Bolt(25, 60, 2));
   boltGroup.push(new Bolt(60, 60, 3));
 
   //** BUTTONROLLOR *******************************
@@ -498,24 +501,17 @@ function draw() {
   mousePosWorld.x = (mousePosScreen.x - T.x) / S.x;
   mousePosWorld.y = (mousePosScreen.y - T.y) / S.y;
 
-  //*****PAN*****
-  if (mouseIsPressed) {
-    if (mouseButton === CENTER) {
-      startPan.x = mousePosScreen.x;
-      startPan.y = mousePosScreen.y;
-    }
-  }
-  //*****PAN*****
+  //** PAN/ZOOM struktur
+  //** MousePos ->
+  //** Beregn mousePosWorld
+  //** applyMatrix(T)
+  //** applyMatrix(S)
+  //** tegn verden
+  //**
 
-  //**PrintOnScreen After This Line => World Coordinates
-  //**Applay T1*S*T2*P = P' => (from right to left) 1.translate T2, 2. Scale, 3. translate T1
-
-  //push(); //**ApplyMatrix START
-  //*****ZOOM*****
-  applyMatrix(1, 0, 0, 1, T1.x, T1.y);
+  //***** TRANSFORMATION *****
+  applyMatrix(1, 0, 0, 1, T.x, T.y);
   applyMatrix(S.x, 0, 0, S.y, 0, 0);
-  applyMatrix(1, 0, 0, 1, -mousePosWorldPre.x, -mousePosWorldPre.y);
-  //*****ZOOM*****
 
   //**Paper
   paper_0 = new Paper(0, 0);
@@ -672,12 +668,18 @@ function draw() {
   if (buttonChoiceShearPlane.Overlap(mousePosWorld))
     buttonChoiceShearPlane.DisplayChangeLeft(buttonChoiceLibShearPlane);
   //** ButtonChoice ** END
-
 } //** DRAW END **
 
 function mousePressed() {
   mouseButtonIsReleased = false;
   oneTime = false;
+
+  //** PAN
+  if (mouseButton === LEFT) {
+    startPan.x = mouseX;
+    startPan.y = mouseY;
+  }
+  //** PAN
 }
 
 function mouseMoved() {}
@@ -696,6 +698,9 @@ function mouseReleased() {
   //** Table control
   table.insertPointSupportLog = false;
   table.countLoggedInsertPoints = 0;
+
+  //** Flag pan
+  movingObject = false;
 }
 
 function mouseWheel(event) {
@@ -724,25 +729,22 @@ function mouseWheel(event) {
     test = true;
 
   if (test == false) {
-    //**ZOOM**
-    T1.x = mouseX;
-    T1.y = mouseY;
-    mousePosWorldPre = mousePosWorld.copy();
+
+    let oldScale = S.x;
 
     if (event.deltaY > 0) {
       S.x *= scaleFactorStep;
       S.y *= scaleFactorStep;
-      T.x = T1.x - (T1.x - T.x) * scaleFactorStep;
-      T.y = T1.y - (T1.y - T.y) * scaleFactorStep;
       //console.log("**** 1 ****");
     }
     if (event.deltaY < 0) {
+      //console.log("**** 2 ****");
       S.x /= scaleFactorStep;
       S.y /= scaleFactorStep;
-      T.x = T1.x - (T1.x - T.x) / scaleFactorStep;
-      T.y = T1.y - (T1.y - T.y) / scaleFactorStep;
-      //console.log("**** 2 ****");
     }
+    // Hold punktet under musen fast
+    T.x = mouseX - (mouseX - T.x) * (S.x / oldScale);
+    T.y = mouseY - (mouseY - T.y) * (S.y / oldScale);
   } else {
     let val;
 
@@ -793,15 +795,12 @@ function mouseWheel(event) {
 
 //*****PAN*****
 function mouseDragged() {
-  if (mouseIsPressed) {
-    if (mouseButton === CENTER) {
-      T1.x = mouseX;
-      T1.y = mouseY;
-      mousePosWorldPre = mousePosWorld.copy();
+  if (mouseButton === LEFT && !movingObject) {
+    T.x += mouseX - startPan.x;
+    T.y += mouseY - startPan.y;
 
-      T.x += (mouseX - startPan.x) * 1;
-      T.y += (mouseY - startPan.y) * 1;
-    }
+    startPan.x = mouseX;
+    startPan.y = mouseY;
   }
 }
 //*****PAN*****

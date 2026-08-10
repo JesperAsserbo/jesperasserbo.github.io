@@ -196,6 +196,8 @@ class System {
     if (button_BoltDelete.state == 1) return; //** If delete active => dont move
     if (plate.edgePointLocked != null) return;
 
+    movingObject = true; //** Flag Pan
+
     let xGraph = (pos.x - graph.insertPoint.x) / 10;
     let yGraph = (pos.y - graph.insertPoint.y) / 10;
 
@@ -213,6 +215,8 @@ class System {
   MoveLoad(pos) {
     if (this.logLoad == false) return;
     if (plate.edgePointLocked != null) return;
+
+    movingObject = true; //** Flag Pan
 
     let xGraph = (pos.x - graph.insertPoint.x) / 10;
     let yGraph = (pos.y - graph.insertPoint.y) / 10;
