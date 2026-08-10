@@ -113,3 +113,21 @@ body {
     overflow: hidden;
 }
 
+/* --------------------------------
+   mouse-instructions
+-------------------------------- */
+
+.mouse-instructions {
+    position: absolute;
+
+    right: 15px;
+    top: 50%;
+
+    transform: translateY(37%);
+
+    height: 150px;
+    width: auto;
+
+    opacity: 0.8;
+}
+
