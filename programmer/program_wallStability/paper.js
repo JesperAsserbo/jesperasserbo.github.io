@@ -66,8 +66,9 @@ class Paper {
     textStyle(ITALIC);
     text("Wall Stability", 350, 150);
 
-    textSize(25);
-    text("Under development, (Må ikke anvendes til proffesionelt brug)", 350, 200);
+    textSize(50);
+    text("Under development, ver. 1.4", 350, 250);
+
 
     textSize(50);
     text("02/11 - 2025", 1750, 150);

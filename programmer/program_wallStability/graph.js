@@ -42,6 +42,7 @@ class Graph {
 
     if (mouseIsPressed && this.logInserPointGraph)
       this.AdjustInsertPoint(this.MoveInSteps(pos));
+    
   }
   AdjustInsertPoint(pos) {
     //this.insertPoint.x = pos.x;

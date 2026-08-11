@@ -1428,7 +1428,7 @@ class WallElement {
         this.loadVertical_Array[i].ip_Load_N_scaled.y
       );
 
-      if (distLoadVertical < 10) {
+      if (distLoadVertical < 20) {
         this.Highlight(this.loadVertical_Array[i].ip_Load_N_scaled);
         if (mouseIsPressed && logGlobal == 0) {
           logGlobal = 1; //** already point logged
@@ -1482,7 +1482,7 @@ class WallElement {
       this.adjustPoint_Right.y
     );
 
-    if (distPoint_Left < 10) {
+    if (distPoint_Left < 20) {
       this.Highlight(this.adjustPoint_Left);
 
       //** Logged
@@ -1507,7 +1507,7 @@ class WallElement {
       this.AdjustWall_Left(this.MoveInSteps(pos));
 
     //** Logged
-    if (distPoint_Right < 10) {
+    if (distPoint_Right < 20) {
       this.Highlight(this.adjustPoint_Right);
       if (mouseIsPressed && logGlobal == 0) {
         this.logAdjustPoint_Right = true;
@@ -1529,6 +1529,7 @@ class WallElement {
 
     if (mouseIsPressed && this.logAdjustPoint_Right)
       this.AdjustWall_Right(this.MoveInSteps(pos));
+    
   }
 
   OverlapAnchorAdjust(pos) {
@@ -1539,7 +1540,9 @@ class WallElement {
       this.anchor_left.y
     );
 
-    if (distAnchor_Left < 10) {
+    
+
+    if (distAnchor_Left < 20) {
       this.Highlight(this.anchor_left);
       if (mouseIsPressed && logGlobal == 0) {
         logGlobal = 1; //** already point logged

@@ -2,8 +2,6 @@
 //** Highlight load in table when overlap load and likwise when overlap in Load Table
 //** When adjust overlapped/moved shove wall width and height
 
-
-
 let buttonArrayGroup_1 = [];
 let buttonArrayGroup_2 = [];
 let buttonArrayGroup_3 = [];
@@ -27,6 +25,7 @@ let mousePosScreen = new p5.Vector(0, 0);
 let mousePosWorld = new p5.Vector(0, 0);
 let mousePosWorldPre = new p5.Vector(0, 0);
 let scaleFactorStep = 1.1; // [1;xx] 1 = ingen scaleGeo, 2 = dobbelt/halvering
+let movingObject = false; //** flag used in pan
 
 let S = new p5.Vector(0.5, 0.5); //**scaleGeoFactor
 let T = new p5.Vector(0, 0);
@@ -55,16 +54,18 @@ let log_wall_N = null;
 let log_load_N = null;
 
 function setup() {
-  //createCanvas(windowWidth - 10, windowHeight - 10);
+  createCanvas(windowWidth - 10, windowHeight - 10);
 
-  //** GitHub setUp - Start */
-  let canvas = createCanvas(
+  /*
+    //** GitHub setUp - Start 
+    let canvas = createCanvas(
     document.getElementById("programvindue").clientWidth,
     document.getElementById("programvindue").clientHeight
   );
 
   canvas.parent("programvindue");
-  //** GitHub setUp - End */
+  //** GitHub setUp - End 
+  */
 
   changeSystem = new ChangeSystem();
   graph = new Graph();
@@ -271,8 +272,6 @@ function setup() {
     (minValue = 10),
     (maxValue = 1000)
   );
-  
-
 
   //** WallDefault
   wall_0 = new WallElement(1000, 1400, 0); //** (posX, posY, wallNumber)
@@ -299,24 +298,17 @@ function draw() {
   mousePosWorld.x = (mousePosScreen.x - T.x) / S.x;
   mousePosWorld.y = (mousePosScreen.y - T.y) / S.y;
 
-  //*****PAN*****
-  if (mouseIsPressed) {
-    if (mouseButton === CENTER) {
-      startPan.x = mousePosScreen.x;
-      startPan.y = mousePosScreen.y;
-    }
-  }
-  //*****PAN*****
+  //** PAN/ZOOM struktur
+  //** MousePos ->
+  //** Beregn mousePosWorld
+  //** applyMatrix(T)
+  //** applyMatrix(S)
+  //** tegn verden
+  //**
 
-  //**PrintOnScreen After This Line => World Coordinates
-  //**Applay T1*S*T2*P = P' => (from right to left) 1.translate T2, 2. scaleGeo, 3. translate T1
-
-  //push(); //**ApplyMatrix START
-  //*****ZOOM*****
-  applyMatrix(1, 0, 0, 1, T1.x, T1.y);
+  //***** TRANSFORMATION *****
+  applyMatrix(1, 0, 0, 1, T.x, T.y);
   applyMatrix(S.x, 0, 0, S.y, 0, 0);
-  applyMatrix(1, 0, 0, 1, -mousePosWorldPre.x, -mousePosWorldPre.y);
-  //*****ZOOM*****
 
   //**Paper
   paper_0 = new Paper(0, 0);
@@ -405,12 +397,12 @@ function draw() {
   g = buttonRollor_g.ReadValue();
   fcd = buttonRollor_fcd.ReadValue();
   scaleGeo = 100;
-  scaleGeo_Test = buttonRollor_scaleGeo.ReadValue()/100;
+  scaleGeo_Test = buttonRollor_scaleGeo.ReadValue() / 100;
 
   //*************************
   //** buttonRollor ** END **
   //*************************
-  
+
   //***********************
   //** Tables  ** START ***
   //***********************
@@ -418,12 +410,10 @@ function draw() {
   tables.OverlapInsertPoint(mousePosWorld);
   tables.MoveTable(mousePosWorld);
   tables.TabelHighlightLoad(mousePosWorld);
-  
-  
- // tables.DisplaySupport(mousePosWorld);
- // tables.OverlapInsertPoint(mousePosWorld);
-  //tables.MoveTable(mousePosWorld);
 
+  // tables.DisplaySupport(mousePosWorld);
+  // tables.OverlapInsertPoint(mousePosWorld);
+  //tables.MoveTable(mousePosWorld);
 
   //console.log(button_DisplaySumForces.state)
   let left = 400;
@@ -499,15 +489,15 @@ function draw() {
     //** Geometry
     wallArray[i].UpdateWall();
     wallArray[i].DisplayWall();
-    wallArray[i].DisplayAndReadWall_t(mousePosWorld);   
+    wallArray[i].DisplayAndReadWall_t(mousePosWorld);
     wallArray[i].DisplayWallFailiure();
-    
+
     //** MesureLines - Wall
     if (button_DisplayWallMesure.state == 1) wallArray[i].WallMesureLines();
 
     wallArray[i].OverlapWallAdjust(mousePosWorld);
     wallArray[i].OverlapAnchorAdjust(mousePosWorld);
-    
+
     //** Load distToCenter
     wallArray[i].DistToCenter();
 
@@ -518,9 +508,7 @@ function draw() {
     //** Load
     wallArray[i].DisplayAndReadLoad_H(mousePosWorld);
     wallArray[i].DisplayAndReadLoad_N(mousePosWorld);
-    
 
-    
     //** MesureLines - Load
     if (button_DisplayLoadMesure.state == 1) wallArray[i].DisplayLoadMesure_N();
 
@@ -538,7 +526,6 @@ function draw() {
         wallArray[i].DisplayReaction_Instability_Left_MesureLines();
       }
     }
-
   }
 
   graph.Update();
@@ -550,14 +537,25 @@ function draw() {
     graph.ResultForceInPoint(mousePosWorld);
   if (button_DisplaySumForces.state == 1) graph.DisplaySumForces();
   if (button_DisplaySumForcesMesure.state == 1) graph.DisplaySumForcesMesure();
-  
+
   //**Tables
   tables.countLoggedInsertPoints = 0;
+
+  //** PAN **
+  if(logGlobal>0) movingObject = true; //** flag used in pan
+  if(graph.logInserPointGraph) movingObject = true; //** flag used in pan
 } //** DRAW END **
 
 function mousePressed() {
   mouseButtonIsReleased = false;
   oneTime = false;
+
+    //** PAN
+  if (mouseButton === LEFT) {
+    startPan.x = mouseX;
+    startPan.y = mouseY;
+  }
+  //** PAN
 }
 
 function mouseMoved() {}
@@ -578,6 +576,10 @@ function mouseReleased() {
   logGlobal = 0; //** no log registred
 
   graph.logInserPointGraph = false;
+
+  
+  //** Flag pan
+  movingObject = false;
 }
 
 function mouseWheel(event) {
@@ -646,26 +648,23 @@ function mouseWheel(event) {
   }
 
   if (test == false) {
-    //**ZOOM**
-    T1.x = mouseX;
-    T1.y = mouseY;
-    mousePosWorldPre = mousePosWorld.copy();
+
+    let oldScale = S.x;
 
     if (event.deltaY > 0) {
       S.x *= scaleFactorStep;
       S.y *= scaleFactorStep;
-      T.x = T1.x - (T1.x - T.x) * scaleFactorStep;
-      T.y = T1.y - (T1.y - T.y) * scaleFactorStep;
       //console.log("**** 1 ****");
     }
     if (event.deltaY < 0) {
+      //console.log("**** 2 ****");
       S.x /= scaleFactorStep;
       S.y /= scaleFactorStep;
-      T.x = T1.x - (T1.x - T.x) / scaleFactorStep;
-      T.y = T1.y - (T1.y - T.y) / scaleFactorStep;
-      //console.log("**** 2 ****");
     }
-    //**ZOOM**
+    // Hold punktet under musen fast
+    T.x = mouseX - (mouseX - T.x) * (S.x / oldScale);
+    T.y = mouseY - (mouseY - T.y) * (S.y / oldScale);
+    
   } else {
     let val = 0;
 
@@ -717,15 +716,12 @@ function mouseWheel(event) {
 
 //*****PAN*****
 function mouseDragged() {
-  if (mouseIsPressed) {
-    if (mouseButton === CENTER) {
-      T1.x = mouseX;
-      T1.y = mouseY;
-      mousePosWorldPre = mousePosWorld.copy();
+  if (mouseButton === LEFT && !movingObject) {
+    T.x += mouseX - startPan.x;
+    T.y += mouseY - startPan.y;
 
-      T.x += (mouseX - startPan.x) * 1;
-      T.y += (mouseY - startPan.y) * 1;
-    }
+    startPan.x = mouseX;
+    startPan.y = mouseY;
   }
 }
 //*****PAN*****

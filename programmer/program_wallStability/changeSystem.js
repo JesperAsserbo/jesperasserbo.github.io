@@ -346,6 +346,7 @@ class ChangeSystem {
       if (
         wallArray[i].adjustPoint_Right.x > wallArray[i - 1].adjustPoint_Right.x
       ) {
+ 
         wallArray[i].wallSupported_Right = false;
         wallArray[i].b_adjusted_Right =
           ((wallArray[i - 1].adjustPoint_Right.x -
@@ -369,6 +370,7 @@ class ChangeSystem {
       if (
         wallArray[i].adjustPoint_Left.x < wallArray[i - 1].adjustPoint_Left.x
       ) {
+        
         wallArray[i].wallSupported_Left = false;
         wallArray[i].b_adjusted_Left =
           ((wallArray[i - 1].adjustPoint_Left.x -

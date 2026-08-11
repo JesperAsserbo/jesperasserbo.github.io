@@ -66,6 +66,7 @@ class Table {
     this.TableMoveSteps(pos);
 
     if (this.insertPointLoadTableLog) {
+      movingObject = true; //** flag used in pan
       this.insertPointLoadTable.x = pos.x;
       this.insertPointLoadTable.y = pos.y;
     }
