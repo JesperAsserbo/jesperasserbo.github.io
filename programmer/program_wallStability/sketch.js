@@ -54,9 +54,9 @@ let log_wall_N = null;
 let log_load_N = null;
 
 function setup() {
-  createCanvas(windowWidth - 10, windowHeight - 10);
+  //createCanvas(windowWidth - 10, windowHeight - 10);
 
-  /*
+  
     //** GitHub setUp - Start 
     let canvas = createCanvas(
     document.getElementById("programvindue").clientWidth,
@@ -65,7 +65,7 @@ function setup() {
 
   canvas.parent("programvindue");
   //** GitHub setUp - End 
-  */
+  
 
   changeSystem = new ChangeSystem();
   graph = new Graph();
