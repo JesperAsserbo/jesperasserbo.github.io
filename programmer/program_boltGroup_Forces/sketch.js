@@ -493,7 +493,7 @@ function draw() {
   //text(nf(millis(), 0, 0), 100, 32);
 
   //**StopOfLoop if too long time
-  if (timePerFrame > 2000) noLoop();
+  //if (timePerFrame > 2000) noLoop(); //** => window does not freeze */
 
   mousePosScreen.x = mouseX;
   mousePosScreen.y = mouseY;

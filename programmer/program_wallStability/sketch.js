@@ -57,7 +57,7 @@ function setup() {
   //createCanvas(windowWidth - 10, windowHeight - 10);
 
   
-    //** GitHub setUp - Start 
+  //** GitHub setUp - Start 
     let canvas = createCanvas(
     document.getElementById("programvindue").clientWidth,
     document.getElementById("programvindue").clientHeight
@@ -290,7 +290,7 @@ function draw() {
   //text(nf(millis(), 0, 0), 100, 32);
 
   //**StopOfLoop if too long time
-  if (timePerFrame > 2000) noLoop();
+  //if (timePerFrame > 2000) noLoop(); //** => window does not freeze */
 
   mousePosScreen.x = mouseX;
   mousePosScreen.y = mouseY;
