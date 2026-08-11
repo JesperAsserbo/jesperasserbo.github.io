@@ -1,70 +1,113 @@
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <title>Jespers Toolbox</title>
-    <link rel="stylesheet" href="assets/css/main.css">
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Jespers Toolbox</title>
+
+    <link rel="stylesheet" href="assets/css/main.css">
 
 </head>
 
+
+<body>
+
+
 <header>
+
     <h1>Jespers Toolbox</h1>
+
     <p>
         Interactive tools for structural calculations
         <sup><a href="#disclaimer">*</a></sup>
     </p>
+
 </header>
 
-<script src="assets/js/main.js"></script>
-
-<body>
 
 <main>
 
-<section class="kort-container">
+    <section class="kort-container">
 
-    <a href="programmer/program_wallStability/index.html" class="kort program-link">
-        <h2>Static calculation</h2>
-        <img src="assets/billeder/GitHub_wallStability.jpg"
-             alt=""
-             class="kort-billede">
-        <p>Wall Stability</p>
 
-        <span class="disclaimer-watermark"> 
-            CHECK DISCLAIMER <br> 
-            BELOW BEFORE USE 
-        </span>
-    </a>
+        <!-- WALL STABILITY -->
 
-    <a href="programmer/program_boltGroup_Forces/index.html" class="kort program-link">
-        <h2>Static calculation</h2>
-        <img src="assets/billeder/GitHub_boltGroup.jpg"
-             alt=""
-             class="kort-billede">
-        <p>Boltgroup forces</p>
+        <a href="programmer/program_wallStability/index.html"
+           class="kort program-link">
 
-        <span class="disclaimer-watermark"> 
-            CHECK DISCLAIMER <br> 
-            BELOW BEFORE USE 
-        </span>
-    </a>
+            <h2>Static calculation</h2>
 
-    <div class="kort">
-        <h2>Static calculation</h2>
-        <img src="assets/billeder/GitHub_whileWeWait.jpg"
-             alt=""
-             class="kort-billede">
-        <p>......more to come</p>
-    </div>
+            <img src="assets/billeder/GitHub_wallStability.jpg"
+                 alt=""
+                 class="kort-billede">
 
-</section>
+            <p>Wall Stability</p>
+
+            <span class="disclaimer-watermark">
+                CHECK DISCLAIMER<br>
+                BELOW BEFORE USE
+            </span>
+
+            <span class="mouse-tooltip">
+                Please check the disclaimer before use
+            </span>
+
+        </a>
+
+
+        <!-- BOLTGROUP FORCES -->
+
+        <a href="programmer/program_boltGroup_Forces/index.html"
+           class="kort program-link">
+
+            <h2>Static calculation</h2>
+
+            <img src="assets/billeder/GitHub_boltGroup.jpg"
+                 alt=""
+                 class="kort-billede">
+
+            <p>Boltgroup forces</p>
+
+            <span class="disclaimer-watermark">
+                CHECK DISCLAIMER<br>
+                BELOW BEFORE USE
+            </span>
+
+            <span class="mouse-tooltip">
+                Please check the disclaimer before use
+            </span>
+
+        </a>
+
+
+        <!-- MORE TO COME -->
+
+        <div class="kort">
+
+            <h2>Static calculation</h2>
+
+            <img src="assets/billeder/GitHub_whileWeWait.jpg"
+                 alt=""
+                 class="kort-billede">
+
+            <p>......more to come</p>
+
+        </div>
+
+
+    </section>
 
 </main>
 
 
 <section class="ansvarsfraskrivelse" id="disclaimer">
 
-    <h3>* Beta version – Educational and non-professional use only</h3>
+    <h3>
+        * Beta version – Educational and non-professional use only
+    </h3>
 
     <p>
         These interactive tools for structural calculations are provided
@@ -106,14 +149,19 @@
         </strong>
     </p>
 
+
     <label class="disclaimer-check">
+
         <input type="checkbox" id="disclaimerCheck">
 
-        I have read and understood the disclaimer above and agree to use
-        these tools solely for educational and study purposes. 
-        <br>
-        I will not use their results for the design, construction, inspection,
-        approval, certification or verification of real structures.
+        <span>
+            I have read and understood the disclaimer above and agree to use
+            these tools solely for educational and study purposes.
+            <br>
+            I will not use their results for the design, construction,
+            inspection, approval, certification or verification of real
+            structures.
+        </span>
 
     </label>
 
@@ -121,6 +169,15 @@
 
 
 <footer>
+
     © Jespers Toolbox
+
 </footer>
+
+
+<script src="assets/js/main.js"></script>
+
 </body>
+
+</html>
+
