@@ -482,6 +482,17 @@ function setup() {
   buttonArray.push(button_NodeAdd, button_BoltDelete);
 }
 
+/*
+//** GitHub - Rezise browserWindow 
+function windowResized() {
+    resizeCanvas(
+        document.getElementById("canvas-container").clientWidth,
+        document.getElementById("canvas-container").clientHeight
+    );
+}
+//** GitHub - Rezise browserWindow 
+*/
+
 function draw() {
   background(100);
   count++;
