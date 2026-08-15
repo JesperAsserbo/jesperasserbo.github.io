@@ -63,7 +63,6 @@ let startPan = new p5.Vector(0, 0);
 function setup() {
   //createCanvas(windowWidth - 10, windowHeight - 10);
 
-  
     //** GitHub setUp - Start 
   let canvas = createCanvas(
     document.getElementById("programvindue").clientWidth,
@@ -482,16 +481,20 @@ function setup() {
   buttonArray.push(button_NodeAdd, button_BoltDelete);
 }
 
-/*
+
 //** GitHub - Rezise browserWindow 
 function windowResized() {
-    resizeCanvas(
-        document.getElementById("canvas-container").clientWidth,
-        document.getElementById("canvas-container").clientHeight
-    );
+    const programvindue = document.getElementById("programvindue");
+
+    if (programvindue) {
+        resizeCanvas(
+            programvindue.clientWidth,
+            programvindue.clientHeight
+        );
+    }
 }
 //** GitHub - Rezise browserWindow 
-*/
+
 
 function draw() {
   background(100);

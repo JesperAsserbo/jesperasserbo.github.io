@@ -279,6 +279,19 @@ function setup() {
   wallArray.push(wall_0);
 }
 
+//** GitHub - Rezise browserWindow 
+function windowResized() {
+    const programvindue = document.getElementById("programvindue");
+
+    if (programvindue) {
+        resizeCanvas(
+            programvindue.clientWidth,
+            programvindue.clientHeight
+        );
+    }
+}
+//** GitHub - Rezise browserWindow 
+
 function draw() {
   background(100);
   count++;
