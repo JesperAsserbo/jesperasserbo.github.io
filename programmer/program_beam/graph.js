@@ -93,9 +93,9 @@ class Graph {
 
     this.axisStrokeWeight = 2;
   }
-  //**********************************
-  //** 0 *****************************
-  //**********************************
+  //********************************************************************
+  //** 0 ***************************************************************
+  //********************************************************************
   DisplayElements(elements, pos) {
     //**
     this.elementsLength = elements.length;
@@ -131,7 +131,8 @@ class Graph {
         this.moveShearActive == false &&
         this.moveDefActive == false &&
         this.moveMomentActive == false &&
-        this.moveConnectionActive == false
+        this.moveConnectionActive == false &&
+        this.moveShearReinforcedActive == false
       ) {
         this.GraphMoveGeo(pos);
         this.moveGeoActive = true;
@@ -212,9 +213,9 @@ class Graph {
 
     pop();
   }
-  //**********************************
-  //** 1 *****************************
-  //**********************************
+  //********************************************************************
+  //** 1 ***************************************************************
+  //********************************************************************
   OverlapGraphDefPos(pos) {
     //**GrapGeometry
     let distDef = dist(pos.x, pos.y, this.insertDef.x - 100, this.insertDef.y);
@@ -336,7 +337,7 @@ class Graph {
         this.moveMomentActive == false &&
         this.moveShearReinforcedActive == false &&
         this.moveConnectionActive == false
-      ) {
+        ) {
         this.GraphMoveDef(pos);
         this.moveDefActive = true;
       }
@@ -442,7 +443,8 @@ class Graph {
         this.moveShearActive == false &&
         this.moveGeoActive == false &&
         this.moveMomentActive == false &&
-        this.moveConnectionActive == false
+        this.moveConnectionActive == false &&
+        this.moveShearReinforcedActive == false
       ) {
         this.GraphMoveDef(pos);
         this.moveDefActive = true;
@@ -545,9 +547,9 @@ class Graph {
     line(start + 25, 0, start + 45, 0);
     pop();
   }
-  //**********************************
-  //** 2 *****************************
-  //**********************************
+  //********************************************************************
+  //** 2 ***************************************************************
+  //********************************************************************
   OverlapGraphMomentPos(pos) {
     //**GraphMoment
     let distMoment = dist(
@@ -743,13 +745,13 @@ class Graph {
   DisplayMomentReinforced(array, supports, pos) {
     if (button_BeamReinforced.state == -1) return;
     let adjust_Y = 0;
-
+push();
     if(this.insertMoment.y== this.insertGeo.y ) adjust_Y =50;
 
-    console.log(this.insertMoment.y + " " +this.insertGeo.y  )
+   // console.log(this.insertMoment.y + " " +this.insertGeo.y  )
     translate(0,adjust_Y)
 
-    push();
+    
     if (supports.length > 0) {
       for (let i = 0, length = array.length; i < length; i++) {
         for (
@@ -1054,9 +1056,9 @@ pop();
 
     pop();
   }
-  //**********************************
-  //** 3 *****************************
-  //**********************************
+  //********************************************************************
+  //** 3 ***************************************************************
+  //********************************************************************
   OverlapGraphShearPos(pos) {
     //**GraphShear
     let distShear = dist(
@@ -1096,7 +1098,7 @@ pop();
     return false;
   }
   GraphMoveShear(pos) {
-    {
+    
       push();
       fill(0, 255, 0, 100);
       circle(this.insertShear.x - 100, this.insertShear.y, 50);
@@ -1108,7 +1110,7 @@ pop();
       //if (this.insertShear.y - pos.y < 0) this.insertShear.y += 10;
 
       pop();
-    }
+    
   }
   GraphMoveShearReinforced(pos) {
     {
@@ -1441,8 +1443,15 @@ pop();
     //****** MoveGraph Shear ******
     //**Variable to lock graph to mousePos
     //**Variable reset when mouseReleased in function mouseReleased in sketch
-    if (this.OverlapGraphShearReinforcedPos(pos) && mouseIsPressed)
-      this.moveShearReinforcedLocked = true;
+    if (this.OverlapGraphShearReinforcedPos(pos) && mouseIsPressed) this.moveShearReinforcedLocked = true;
+
+    console.log("this.MoveGeoActive: "+this.moveGeoActive)
+    console.log("this.moveDefActive: "+this.moveDefActive)
+    console.log("this.moveMomentActive: "+this.moveMomentActive)
+    console.log("this.moveShearActive: "+this.moveShearActive)
+    console.log("this.moveConnectionActive: "+this.moveConnectionActive)
+    console.log("this.moveShearReinforcedActive: "+this.moveShearReinforcedActive)
+ 
 
     if (this.moveShearReinforcedLocked) {
       if (
@@ -1454,9 +1463,10 @@ pop();
       ) {
         this.GraphMoveShearReinforced(pos);
         this.moveShearReinforcedActive = true;
+      
       }
     }
-
+    //console.log("graph line 1459 - MoveDef " + this.moveDefLocked)
     //**ScaleMesure
     this.ScaleMesure(array, this.insertShear);
 
@@ -1656,9 +1666,9 @@ pop();
 
     pop();
   }
-  //**********************************
-  //** 4 *****************************
-  //**********************************
+  //********************************************************************
+  //** 4 ***************************************************************
+  //********************************************************************
   ScaleMesure(elements, insertPoint) {
     let adjustScalePos = 0;
     if (button_BeamReinforced.state == 1) adjustScalePos = 75;
@@ -1689,9 +1699,9 @@ pop();
     line(0, 0, 100, 0);
     pop();
   }
-  //**********************************
-  //** 5 *****************************
-  //**********************************
+  //********************************************************************
+  //** 5 ***************************************************************
+  //********************************************************************
   DisplayReactions(supports) {
     for (let i = 0, length = supports.length; i < length; i++) {
       let value = nf(round(supports[i].reaction / 1000, 2), 0, 2);
@@ -1860,9 +1870,9 @@ pop();
       }
     }
   }
-  //**********************************
-  //** 6 *****************************
-  //**********************************
+  //********************************************************************
+  //** 6 ***************************************************************
+  //********************************************************************
   DisplayMesure(elements, supports) {
     push();
 
@@ -1933,31 +1943,14 @@ pop();
   GraphMoveSteps(pos) {
     //**pos.y in multioplum of stepChange
     let stepChange = 10; //*scaleGeo;
-
-    //console.log("pos.x: " + pos.x + " round(pos): " + round(pos.x/10)*10)
-    //pos.x = int(pos.x / stepChange) * stepChange;
-    //pos.y = int(pos.y / stepChange) * stepChange;
-
     pos.x = round(pos.x / stepChange) * stepChange;
     pos.y = round(pos.y / stepChange) * stepChange;
-    /*
-    //** X
-    let remainder_x = int(pos.x) % stepChange;
-    if (remainder_x > stepChange / 2)
-      pos.x = int(pos.x) + (stepChange - remainder_x);
-    if (remainder_x <= stepChange / 2) pos.x = int(pos.x) - remainder_x;
-
-    //** Y
-    let remainder_y = int(pos.y) % stepChange;
-    if (remainder_y > stepChange / 2)
-      pos.y = int(pos.y) + (stepChange - remainder_y);
-    if (remainder_y <= stepChange / 2) pos.y = int(pos.y) - remainder_y;
-*/
+ 
     return pos;
   }
-  //**********************************
-  //** 7 *****************************
-  //**********************************
+  //********************************************************************
+  //** 7 ***************************************************************
+  //********************************************************************
   //** OverlapGraphConnectionPos(pos)
   OverlapGraphConnection(pos) {
     //**GraphShear
