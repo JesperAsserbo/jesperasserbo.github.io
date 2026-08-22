@@ -1445,14 +1445,6 @@ pop();
     //**Variable reset when mouseReleased in function mouseReleased in sketch
     if (this.OverlapGraphShearReinforcedPos(pos) && mouseIsPressed) this.moveShearReinforcedLocked = true;
 
-    console.log("this.MoveGeoActive: "+this.moveGeoActive)
-    console.log("this.moveDefActive: "+this.moveDefActive)
-    console.log("this.moveMomentActive: "+this.moveMomentActive)
-    console.log("this.moveShearActive: "+this.moveShearActive)
-    console.log("this.moveConnectionActive: "+this.moveConnectionActive)
-    console.log("this.moveShearReinforcedActive: "+this.moveShearReinforcedActive)
- 
-
     if (this.moveShearReinforcedLocked) {
       if (
         this.moveGeoActive == false &&
