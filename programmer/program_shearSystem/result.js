@@ -3119,6 +3119,7 @@ class Result {
       //** InserPoint... [i][1] true/false if overlapped
       //** Set in result.OverlapInsertPointStringer(pos)
       if (this.insertPointStringerHor[i][1] && mouseIsPressed) {
+        movingObject = true;
         //**pos.y in multioplum of this.stepChangeGrid
         let remainderX = int(pos.y) % this.stepChange;
         if (remainderX > this.stepChange / 2)
@@ -3143,6 +3144,7 @@ class Result {
       //** InserPoint... [i][1] true/false if overlapped
       //** Set in result.OverlapInsertPointStringer(pos)
       if (this.insertPointStringerVer[i][1] && mouseIsPressed) {
+        movingObject = true;
         //**pos.y in multioplum of this.stepChangeGrid
         let remainderX = int(pos.y) % this.stepChange;
         if (remainderX > this.stepChange / 2)

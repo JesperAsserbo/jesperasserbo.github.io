@@ -503,6 +503,8 @@ function draw() {
   )
     movingObject = true;
 
+    //** Move stringer InsertPoint handled in class result.MoveInsertPointStringer(pos)
+
   //**Paper
   paper_0 = new Paper(0, 0);
   paper_1 = new Paper(2200, 0);
