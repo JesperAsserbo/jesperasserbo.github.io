@@ -30,11 +30,10 @@ class WallSystem {
         this.array[i].OverlapEndPos(pos)
       ) {
         this.overlapWall = i;
-        this.wallMove = true;
+        if(mouseIsPressed) this.wallMoveLogged = true;
         break;
       } else {
         this.overlapWall = null;
-        this.wallMove = false;
       }
     }
   }

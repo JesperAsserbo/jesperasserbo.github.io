@@ -409,7 +409,7 @@ function draw() {
     tables.insertPointForcesLog ||
     tables.insertPointCalcCRLog ||
     tables.insertPointCalcCMLog ||
-    wallSystem.wallMove
+    wallSystem.wallMoveLogged
   ) {
     movingObject = true;
   } else movingObject = false;
@@ -666,7 +666,7 @@ function mouseReleased() {
 
   countLoggedInsertPoints = 0;
 
-  this.wallMove = false;
+  wallSystem.wallMoveLogged = false;
   //** Flag pan
   movingObject = false;
 }
