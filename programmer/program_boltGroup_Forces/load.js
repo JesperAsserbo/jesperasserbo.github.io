@@ -167,9 +167,9 @@ class Load {
     text("kNm", 210, 130);
 
     textSize(20);
-    text("x,Tp", 20, 40);
-    text("y,Tp", 20, 90);
-    text("z,Tp", 30, 140);
+    text("x,CM", 20, 40);
+    text("y,CM", 20, 90);
+    text("z,CM", 30, 140);
 
     textAlign(RIGHT, CENTER);
     textSize(30);

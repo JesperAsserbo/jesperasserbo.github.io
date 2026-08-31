@@ -3,10 +3,16 @@ class Calculation {
     this.pos_Tp = new p5.Vector(0, 0);
     this.pos_Tp_scaled = new p5.Vector(0, 0);
     this.pos_Tp_scaledGraph = new p5.Vector(0, 0);
+
+    this.pos_CR = new p5.Vector(0, 0);
+    this.pos_CR_scaled = new p5.Vector(0, 0);
+    this.pos_CR_scaledGraph = new p5.Vector(0, 0);
+
     this.Ip = 0;
 
     //** Calc with respect to 0,0
     this.pos_Tp_calc = new p5.Vector(0, 0);
+    this.pos_CR_calc = new p5.Vector(0, 0);
   }
 
   Display_Fbrd() {
@@ -31,7 +37,7 @@ class Calculation {
     textAlign(LEFT, CENTER);
     text("F", 0, 25 + 2.5);
     text("=", 100, 25 + 2.5);
-   // text(factor, 160, 50 + 2.5);
+    // text(factor, 160, 50 + 2.5);
 
     textAlign(LEFT, CENTER);
     textSize(22);
@@ -43,7 +49,7 @@ class Calculation {
     //text("\u21D2", 1000, 50);
     textAlign(LEFT, CENTER);
     text("( \u03B1   k  )", 130, 25);
-    text("         d t", 210, 25 );
+    text("         d t", 210, 25);
     text("f", 340, 10);
     strokeWeight(2);
     line(330, 25, 390, 25);
@@ -79,7 +85,7 @@ class Calculation {
     text(plate.plate_t + " mm", 425, 125 + 2.5);
     // text("\u22C5", 460, 125 + 2.5 );
     strokeWeight(2);
-    line(535, 125,660, 125);
+    line(535, 125, 660, 125);
     text(plate.fu + " MPa", 535, 105 + 2.5);
     text("1.35", 565, 145 + 2.5);
 
@@ -180,13 +186,30 @@ class Calculation {
     }
   }
 
+  CenterRotation() {
+    let x_CR = 0;
+    let y_CR = 0;
+
+    //** Placering i forhold til Tp
+    x_CR = (-load.Py_Tp * this.Ip) / (boltGroup.length * load.Mz_Tp);
+    y_CR = (load.Px_Tp * this.Ip) / (boltGroup.length * load.Mz_Tp);
+
+    this.pos_CR_calc.x = x_CR;
+    this.pos_CR_calc.y = y_CR;
+
+    //console.log(x_CR + " " + y_CR)
+
+    push();
+
+    pop();
+  }
+
   IpBoltGroup() {
     this.Ip = 0;
     for (let bolt in boltGroup) {
       this.Ip += boltGroup[bolt].r2_Tp;
     }
   }
-
   Load_Tp() {
     let y_diff = this.pos_Tp_calc.y - load.pos_Load_calc.y;
     let x_diff = load.pos_Load_calc.x - this.pos_Tp_calc.x;
@@ -194,7 +217,6 @@ class Calculation {
     load.Px_Tp = load.Px;
     load.Py_Tp = load.Py;
   }
-
   ForceBoltOne() {
     if (boltGroup.length > 1) return;
 
@@ -207,7 +229,6 @@ class Calculation {
 
     boltGroup[0].F_Res = p5.Vector.div(boltGroup[0].F_Res_Vector, scaleForce);
   }
-
   ForcesBolts() {
     if (boltGroup.length < 2) return;
     if (this.Ip == 0) return;
@@ -228,6 +249,65 @@ class Calculation {
         scaleForce
       );
     }
+  }
+
+  Display_CR() {
+    if (boltGroup.length < 2) return;
+    this.insertPoint = graph.insertPoint;
+
+    this.pos_CR_scaled.x = (this.pos_CR_calc.x + this.pos_Tp_calc.x) * scaleGeo;
+    this.pos_CR_scaled.y = (this.pos_CR_calc.y + this.pos_Tp_calc.y) * scaleGeo;
+    //this.pos_Tp_scaled = p5.Vector.mult(this.pos_Tp_calc, 10);
+
+    this.pos_CR_scaledGraph = p5.Vector.add(
+      this.pos_CR_scaled,
+      this.insertPoint
+    );
+
+    //this.pos_Tp_calc
+
+    push();
+    fill(0, 0, 255, 100);
+    //let xTp = this.pos_Tp_scaledGraph.x;
+    //let yTp = this.pos_Tp_scaledGraph.y;
+
+    let xCR = this.pos_CR_scaledGraph.x;
+    let yCR = this.pos_CR_scaledGraph.y;
+
+    let xCRvalue = calc.pos_Tp_calc.x + calc.pos_CR_calc.x;
+    let yCRvalue = calc.pos_Tp_calc.y + calc.pos_CR_calc.y;
+
+    //console.log(this.pos_Tp_scaledGraph)
+    circle(xCR, yCR, 15);
+    line(xCR - 20, yCR, xCR + 20, yCR);
+    line(xCR, yCR - 20, xCR, yCR + 20);
+    textAlign(LEFT, CENTER);
+    textSize(20);
+    stroke(0);
+    text("CR", xCR + 15, yCR + 20);
+    /*
+    text(
+      "[ " +
+        nf(round(xCRvalue,1), 0, 1) +
+        " ; " +
+        nf(round(yCRvalue,1), 0, 1) +
+        " ]",
+      xCR + 50,
+      yCR + 20
+    );
+    */
+
+    stroke(0,0,255,200);
+    for (let bolt in boltGroup) {
+      line(
+        this.pos_CR_scaledGraph.x,
+        this.pos_CR_scaledGraph.y,
+        boltGroup[bolt].pos_o_scaledGraph.x,
+        boltGroup[bolt].pos_o_scaledGraph.y
+      );
+    }
+
+    pop();
   }
 
   Display_Tp() {
@@ -260,7 +340,8 @@ class Calculation {
     textAlign(LEFT, CENTER);
     textSize(20);
     stroke(0);
-    text("Tp", xTp + 15, yTp + 20);
+    text("CM", xTp + 15, yTp + 20);
+    /*
     text(
       "[ " +
         nf(this.pos_Tp_calc.x, 0, 1) +
@@ -270,6 +351,7 @@ class Calculation {
       xTp + 50,
       yTp + 20
     );
+    */
     pop();
   }
 }

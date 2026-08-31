@@ -67,10 +67,10 @@ class Paper {
 
     textSize(50);
 
-    text("Under development, ver. 1.4", 350, 250);
+    text("Under development, ver. 1.5", 350, 250);
 
     textSize(50);
-    text("04/08 - 2026", 1750, 150);
+    text("31/08 - 2026", 1750, 150);
     pop();
   }
 
@@ -82,7 +82,7 @@ class Paper {
     textSize(40);
     textAlign(LEFT,BASELINE);
     text("Load (Lp)",this.insertPoint.x + 400, this.insertPoint.y + 492.5);
-    text("CenterGravity (Tp)",this.insertPoint.x + 950, this.insertPoint.y + 492.5);
+    text("Center of Mass (CM)",this.insertPoint.x + 950, this.insertPoint.y + 492.5);
 
     //** point
     push();

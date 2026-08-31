@@ -2,6 +2,10 @@
 //** Ret A in buttonChoice
 //** Dont place bolt in same position
 //** calc if mouseIsPressed or in the calcZone
+
+//** Rev F
+//** Tilføjet rotation center (CR)
+//** Forøge papir hvis område ændres
 //*********************************
 
 let count = 0;
@@ -63,6 +67,7 @@ let startPan = new p5.Vector(0, 0);
 function setup() {
   //createCanvas(windowWidth - 10, windowHeight - 10);
 
+  
     //** GitHub setUp - Start 
   let canvas = createCanvas(
     document.getElementById("programvindue").clientWidth,
@@ -507,7 +512,7 @@ function draw() {
   //text(nf(millis(), 0, 0), 100, 32);
 
   //**StopOfLoop if too long time
-  //if (timePerFrame > 2000) noLoop(); //** => window does not freeze */
+  if (timePerFrame > 2000) noLoop();
 
   mousePosScreen.x = mouseX;
   mousePosScreen.y = mouseY;
@@ -581,8 +586,11 @@ function draw() {
 
   //** Calc
   calc.Tp();
+  calc.CenterRotation();
   calc.IpBoltGroup();
   calc.Display_Tp();
+  calc.Display_CR();
+  
   calc.ForceBoltOne();
   calc.ForcesBolts();
   calc.Load_Tp();
@@ -651,6 +659,7 @@ function draw() {
   table.DisplayBolt(mousePosWorld);
   table.MoveTable(mousePosWorld);
   table.DisplayBoltInTable(mousePosWorld);
+  table.DisplayCalc();
 
   //** ButtonChoice ** START
   //** BoltSize

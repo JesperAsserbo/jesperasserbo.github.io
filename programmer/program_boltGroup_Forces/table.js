@@ -33,7 +33,7 @@ class Table {
       this.insertPointTabelSupport.y
     );
 
-    if (distInsertPointSupport < 10) {
+    if (distInsertPointSupport < 30) {
       this.OverlapHighligth(this.insertPointTabelSupport);
       if (this.countLoggedInsertPoints == 0) {
         //** LogState => move particle fast
@@ -54,7 +54,8 @@ class Table {
     } else {
       fill(100, 100, 100, 100);
     }
-    circle(pos.x, pos.y, 20);
+    noStroke();
+    circle(pos.x, pos.y, 40);
     pop();
   }
 
@@ -167,6 +168,7 @@ class Table {
     let col_10 = 1450; //** Fv,rd
 
     push();
+    noFill();
     circle(p.x, p.y, 20);
 
     //** Table Background
@@ -175,12 +177,13 @@ class Table {
     let w = col_10;
     let h = 100 + 50 * boltGroup.length;
     rect(p.x, p.y, w, h); //** Set at metod end
+
     fill(0);
 
     //** Headline
     textAlign(LEFT, CENTER);
-    textSize(30);
-    //text("BoltForces", p.x, p.y - 25);
+    textSize(40);
+    text("Calculation - BoltForces", p.x, p.y - 75);
 
     //** Table Text
     textAlign(CENTER, CENTER);
@@ -245,6 +248,9 @@ class Table {
     let Fy_sum = 0;
     let r2_sum = 0;
 
+    let x_sum = 0;
+    let y_sum = 0;
+
     let decimals = 1;
     push();
     for (let i = 0, length = boltGroup.length; i < length; i++) {
@@ -281,6 +287,9 @@ class Table {
       Fx_sum += boltGroup[i].F_Res.x;
       Fy_sum += boltGroup[i].F_Res.y;
       r2_sum += boltGroup[i].r2_Tp;
+
+      x_sum += boltGroup[i].pos_o_calc.x;
+      y_sum += boltGroup[i].pos_o_calc.y;
 
       //** Test Overlap bolt
       if (
@@ -387,6 +396,18 @@ class Table {
       p.x + col_5 - 15,
       p.y + 127.5 + 50 * boltGroup.length
     );
+
+    text(
+      nf(round(x_sum, decimals), 0, decimals),
+      p.x + col_2 - 15,
+      p.y + 127.5 + 50 * boltGroup.length
+    );
+
+    text(
+      nf(round(y_sum, decimals), 0, decimals),
+      p.x + col_3 - 15,
+      p.y + 127.5 + 50 * boltGroup.length
+    );
     pop();
   }
 
@@ -408,6 +429,210 @@ class Table {
     if (number == 0) {
       this.mantissa = 0;
     }
+  }
+
+  DisplayCalc() {
+    let p = this.insertPointTabelSupport;
+    push();
+    translate(p.x, p.y + 250 + 50 * boltGroup.length);
+    textSize(40);
+    text("Center of Mass (CM)", 0, 0);
+
+    //***********
+    //** X_CM
+    textSize(30);
+    text("X ", 70, 60);
+    text("= ", 150, 60);
+    text("1/n", 185, 60);
+    text("X", 260, 60);
+    text("= ", 325, 60);
+    text("mm ", 460, 60);
+
+    //** Symbol
+    textSize(40);
+    text("\u2211", 230, 60);
+
+    textSize(22);
+    text("CM", 95, 70);
+    text("i", 285, 70);
+
+    //** Result
+    textSize(30);
+    textAlign(RIGHT);
+    text(nf(round(calc.pos_Tp_calc.x, 1), 0, 1), 450, 60);
+
+    //***********
+    //** Y_CM
+    translate(0, 50);
+    textAlign(LEFT);
+    textSize(30);
+    text("Y ", 70, 60);
+    text("= ", 150, 60);
+    text("1/n", 185, 60);
+    text("Y", 260, 60);
+    text("= ", 325, 60);
+    text("mm ", 460, 60);
+
+    //** Symbol
+    textSize(40);
+    text("\u2211", 230, 60);
+
+    textSize(22);
+    text("CM", 95, 70);
+    text("i", 285, 70);
+
+    //** Result
+    textSize(30);
+    textAlign(RIGHT);
+    text(nf(round(calc.pos_Tp_calc.y, 2), 0, 1), 450, 60);
+    pop();
+
+    //***************************************************
+    //************************* CENTER OF ROTATION ******
+   
+    push();
+    translate(p.x, p.y + 500 + 50 * boltGroup.length);
+    textSize(40);
+    text("Center of Rotation (CR)", 0, 0);
+
+    textSize(30);
+    text("X ", 70, 60);
+    text("= ", 150, 60);
+    text("X ", 200, 60);
+    text("- ", 265, 57.5);
+    text("P ", 320, 38);
+    text("I ", 360, 38);
+    text("n ", 310, 85);
+    text("M ", 340, 85);
+    text("= ", 475, 60);
+    if (load.Mz_Tp != 0) text("mm ", 610, 60);
+
+    textSize(22);
+    text("CR", 95, 70);
+    text("CM", 225, 70);
+    text("y", 335, 42);
+    text("p", 375, 42);
+    text("z,CM", 370, 90);
+
+    strokeWeight(2);
+    line(290, 50, 440, 50);
+    strokeWeight(1);
+
+    //** Result
+    textSize(30);
+    textAlign(RIGHT);
+    let xCR = calc.pos_Tp_calc.x + calc.pos_CR_calc.x;
+
+    if (load.Mz_Tp == 0) {
+      push();
+      textSize(60);
+      noStroke();
+      xCR = text("\u221E", 550, 70);
+      pop();
+    } else {
+      text(nf(round(xCR, 1), 0, 1), 600, 60);
+    }
+
+
+    //** X_CY *************
+textAlign(LEFT);
+    translate(0,100)
+        textSize(30);
+    text("Y ", 70, 60);
+    text("= ", 150, 60);
+    text("Y ", 200, 60);
+    text("- ", 265, 57.5);
+    text("P ", 320, 38);
+    text("I ", 360, 38);
+    text("n ", 310, 85);
+    text("M ", 340, 85);
+    text("= ", 475, 60);
+    if (load.Mz_Tp != 0) text("mm ", 610, 60);
+
+    textSize(22);
+    text("CR", 95, 70);
+    text("CM", 225, 70);
+    text("x", 335, 42);
+    text("p", 375, 42);
+    text("z,CM", 370, 90);
+
+    strokeWeight(2);
+    line(290, 50, 440, 50);
+    strokeWeight(1);
+
+    //** Result
+    textSize(30);
+    textAlign(RIGHT);
+    let yCR = calc.pos_Tp_calc.y + calc.pos_CR_calc.y;
+
+    if (load.Mz_Tp == 0) {
+      push();
+      textSize(60);
+      noStroke();
+      yCR = text("\u221E", 550, 70);
+      pop();
+    } else {
+      text(nf(round(yCR, 1), 0, 1), 600, 60);
+    }
+
+    //** CircleSign
+
+    
+
+
+    
+    pop();
+
+
+
+       push();
+        translate(p.x, p.y + 250 + 50 * boltGroup.length);
+    fill(255, 0, 0, 100);
+    //let xTp = this.pos_Tp_scaledGraph.x;
+    //let yTp = this.pos_Tp_scaledGraph.y;
+
+    let x = 25;
+    let y = 50;
+
+    //console.log(this.pos_Tp_scaledGraph)
+    circle(x, y, 15);
+    line(x- 20, y, x + 20, y);
+    line(x, y - 20, x, y + 20);
+    textAlign(LEFT, CENTER);
+    textSize(20);
+    stroke(0);
+   
+
+  
+
+    pop();
+
+
+
+    
+
+
+    push();
+        translate(p.x, p.y + 500 + 50 * boltGroup.length);
+    fill(0, 0, 255, 100);
+ 
+    let x1 = 25;
+    let y1 = 50;
+
+    //console.log(this.pos_Tp_scaledGraph)
+    circle(x1, y1, 15);
+    line(x1- 20, y1, x1 + 20, y1);
+    line(x1, y1 - 20, x1, y1 + 20);
+    textAlign(LEFT, CENTER);
+    textSize(20);
+    stroke(0);
+   
+
+  
+
+    pop();
+    
+    
   }
 
   DisplayButtonRollorInTable(pos) {
