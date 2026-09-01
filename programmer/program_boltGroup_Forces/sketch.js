@@ -511,8 +511,9 @@ function draw() {
   //text(nf(timePerFrame, 0, 0), 100, 20);
   //text(nf(millis(), 0, 0), 100, 32);
 
+  //** GitHub delete Loop
   //**StopOfLoop if too long time
-  if (timePerFrame > 2000) noLoop();
+  //if (timePerFrame > 2000) noLoop();
 
   mousePosScreen.x = mouseX;
   mousePosScreen.y = mouseY;
