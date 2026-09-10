@@ -409,7 +409,8 @@ function draw() {
     tables.insertPointForcesLog ||
     tables.insertPointCalcCRLog ||
     tables.insertPointCalcCMLog ||
-    wallSystem.wallMoveLogged
+    wallSystem.wallMoveLogged||
+    button_WallAdd.state == 1
   ) {
     movingObject = true;
   } else movingObject = false;
