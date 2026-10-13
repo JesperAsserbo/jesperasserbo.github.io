@@ -34,6 +34,14 @@ class MatrixLoad {
     this.MatrixLoadVertical();
   }
 
+  /*
+  TestLoadAdd(pos){
+    if(button_TestLoad.state == -1 ) return;
+    
+    console.log("Matrixoad line 38 ")
+  }
+  */
+
   //** Called from changeSystem.DeleteSkin();
   LoadDeleteIfNoSkins() {
     //*************
@@ -213,6 +221,15 @@ class MatrixLoad {
               this.matrixLoadArray[stringer_hor][0] += this.matrixLoad[row][
                 col
               ].Px;
+
+              //** TestLoad
+              if (nodeRowLogged != null || nodeColLogged != null) {
+                if (row == nodeRowLogged && col == nodeColLogged) {
+                  this.matrixLoadArray[stringer_hor][0] += this.matrixLoad[
+                    nodeRowLogged
+                  ][nodeColLogged].Px_Test;
+                }
+              }
             }
           }
         }
@@ -305,6 +322,17 @@ class MatrixLoad {
               this.matrixLoadArray[
                 stringer_ver + skinSystem.stringerHorisontal.length
               ][0] += this.matrixLoad[row][col].Py;
+
+              //** TestLoad
+              if (nodeRowLogged != null || nodeColLogged != null) {
+                if (row == nodeRowLogged && col == nodeColLogged) {
+                  this.matrixLoadArray[
+                    stringer_ver + skinSystem.stringerHorisontal.length
+                  ][0] += this.matrixLoad[nodeRowLogged][nodeColLogged].Py_Test;
+                }
+
+                //console.log("matrixLoad line 325 - r: " + row + " c: " + col + " Value: " + this.matrixLoad[row][col].Py_Test)
+              }
             }
           }
         }
@@ -361,6 +389,17 @@ class MatrixLoad {
     for (let row = 0; row < grid.rows.length; row++) {
       for (let col = 0; col < grid.columns.length; col++) {
         this.matrixLoad[row][col].DisplayLoadValue();
+      }
+    }
+  }
+
+  DeleteTestLoad() {
+    if (button_TestLoad.state == -1) return;
+
+    for (let row = 0; row < grid.rows.length; row++) {
+      for (let col = 0; col < grid.columns.length; col++) {
+        this.matrixLoad[row][col].Px_Test = 0;
+        this.matrixLoad[row][col].Py_Test = 0;
       }
     }
   }

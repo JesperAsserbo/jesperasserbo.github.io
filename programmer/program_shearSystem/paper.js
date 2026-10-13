@@ -67,10 +67,10 @@ class Paper {
     text("ShearSystem", 350, 150);
 
     textSize(50);
-    text("Under development, ver. 1.2", 350, 250);
+    text("Under development, ver. 1.3", 350, 250);
 
     textSize(50);
-    text("20/09 - 2025", 1750, 150);
+    text("12/10 - 2026", 1750, 150);
     pop();
   }
 

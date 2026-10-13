@@ -5,6 +5,9 @@ class Load {
     this.Px = 0;
     this.Py = 0;
 
+    this.Px_Test = 0;
+    this.Py_Test = 0;
+
     this.loadExist_Py = false;
     this.loadExist_Px = false;
 

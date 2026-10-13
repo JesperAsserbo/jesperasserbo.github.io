@@ -462,10 +462,6 @@ class Grid {
   }*/
 
   ChangeGridSteps(pos) {
-    //** Log => that node sticks to mousePos until released
-    if (this.OverlapNode(pos) && mouseIsPressed) {
-      logGridNode = true;
-    }
 
     //** Highligth node when overlap (and no button activated)
     if (this.OverlapNode(pos)) {
@@ -505,5 +501,20 @@ class Grid {
 
       this.columns[this.columnNearest][0] = pos.x;
     }
+
+    //** only log if not already logged
+    if(nodeColLogged != null) return;
+    if (this.OverlapNode(pos))changeSystem.HighLigthNodeGreen();
+    //** Log => that node sticks to mousePos until released
+    if (this.OverlapNode(pos) && mouseIsPressed) {
+      
+      nodeColLogged = this.columnNearest;
+      nodeRowLogged= this.rowNearest;
+
+      //console.log("grid line 471 - nodeColLogged - " + nodeColLogged)
+      //console.log("grid line 472 - nodeRowLogged - " + nodeRowLogged)
+      logGridNode = true;
+    }
+
   }
 }

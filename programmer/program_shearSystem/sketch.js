@@ -32,6 +32,12 @@ let moveGridNode = true; //** used in grid.ChangeGridSteps(pos)
 let logGridOriginMove = false;
 let logStringerInsertPoint = false;
 
+//*Log node Testet in grid.ChangeGridSteps(pos)
+let nodeColLogged = null;
+let nodeRowLogged= null;
+let testLoadValue = 0;
+let testLoadVector = new p5.Vector(0,0)
+
 //**Matrix
 let matrix_x = [];
 let matrixSolve; //**Object
@@ -76,9 +82,9 @@ let skinSystem;
 let grid;
 
 function setup() {
-  //createCanvas(windowWidth - 10, windowHeight - 10);
+  createCanvas(windowWidth - 10, windowHeight - 10);
 
- 
+  
     //** GitHub - Remember delete Loop()
   
     //** GitHub setUp - Start 
@@ -213,6 +219,17 @@ function setup() {
     (state = -1) //**-1 => OFF, +1 => ON
   );
 
+    button_TestLoad = new Button(
+    (pos1x = xPosAdd),
+    (pos1y = 745),
+    (pos2x = 500),
+    (pos3x = 670),
+    (textPro = ""),
+    (buttonWidth = 40),
+    (buttonHeight = 40),
+    (state = -1) //**-1 => OFF, +1 => ON
+  );
+
   button_AddStringer = new Button(
     (pos1x = xPosAdd),
     (pos1y = 795),
@@ -246,6 +263,7 @@ function setup() {
     button_DeleteLoad_Px,
     button_AddLoad_Py,
     button_DeleteLoad_Py,
+    button_TestLoad,
     button_AddStringer,
     button_DeleteStringer
   );
@@ -478,8 +496,6 @@ function draw() {
   mousePosWorld.x = (mousePosScreen.x - T.x) / S.x;
   mousePosWorld.y = (mousePosScreen.y - T.y) / S.y;
 
-
-
   //** PAN/ZOOM struktur
   //** MousePos ->
   //** Beregn mousePosWorld
@@ -499,11 +515,11 @@ function draw() {
     logStringerInsertPoint ||
     result.insertPointLog ||
     result.insertPointLogSupport ||
-    result.insertPointLogLoad
+    result.insertPointLogLoad 
   )
     movingObject = true;
 
-    //** Move stringer InsertPoint handled in class result.MoveInsertPointStringer(pos)
+  //** Move stringer InsertPoint handled in class result.MoveInsertPointStringer(pos)
 
   //**Paper
   paper_0 = new Paper(0, 0);
@@ -520,8 +536,8 @@ function draw() {
   push();
   stroke(0);
   fill(0);
-    circle( mousePosWorld.x, mousePosWorld.y,6);
-pop();
+  circle(mousePosWorld.x, mousePosWorld.y, 6);
+  pop();
   //**ButtonTekst
   push();
   textSize(30);
@@ -531,6 +547,7 @@ pop();
   text("Support Cy", 520, 585);
   text("Load Px", 520, 635);
   text("Load Py", 520, 685);
+  text("Load Test", 520, 735);
   text("Stringer", 520, 785);
   //text("Add/Delete Graph Values", 520, 785);
 
@@ -561,6 +578,7 @@ pop();
   button_DeleteLoad_Px.DisplayButton(DeleteColor, 0);
   button_AddLoad_Py.DisplayButton(AddColor, 1);
   button_DeleteLoad_Py.DisplayButton(DeleteColor, 0);
+  button_TestLoad.DisplayButton(AddColor, 1);
   button_AddStringer.DisplayButton(AddColor, 1);
   button_DeleteStringer.DisplayButton(DeleteColor, 0);
 
@@ -596,6 +614,7 @@ pop();
         button_DeleteLoad_Px.SwitchFunction(mousePosWorld, buttonArray);
         button_AddLoad_Py.SwitchFunction(mousePosWorld, buttonArray);
         button_DeleteLoad_Py.SwitchFunction(mousePosWorld, buttonArray);
+        button_TestLoad.SwitchFunction(mousePosWorld, buttonArray);
         button_AddStringer.SwitchFunction(mousePosWorld, buttonArray);
         button_DeleteStringer.SwitchFunction(mousePosWorld, buttonArray);
       }
@@ -657,6 +676,8 @@ pop();
   if (button_AddLoad_Py.state == 1) changeSystem.AddLoad(mousePosWorld);
   if (button_DeleteLoad_Py.state == 1) changeSystem.DeleteLoad(mousePosWorld);
 
+    if (button_TestLoad.state == 1) changeSystem.AddTestLoad(mousePosWorld);
+
   if (button_AddStringer.state == 1) changeSystem.AddStringer(mousePosWorld);
   if (button_DeleteStringer.state == 1)
     changeSystem.DeleteStringer(mousePosWorld);
@@ -699,12 +720,12 @@ pop();
   matrixLoad.overlapCol = undefined;
 
   //** CALC ZONE ** START **
-  let topGrid = new p5.Vector.add(grid.origin, new p5.Vector(-150, -150));
+  let topGrid = new p5.Vector.add(grid.origin, new p5.Vector(-500, -500));
   //topGrid.x = topGrid.x-150;
   //topGrid.y = topGrid.y-150;
   let endGrid = new p5.Vector(
-    -topGrid.x + 150 + grid.gridNodes[0][grid.columnsTotal - 1][0],
-    -topGrid.y + 200 + grid.gridNodes[grid.rowsTotal - 1][0][1]
+    -topGrid.x + 500 + grid.gridNodes[0][grid.columnsTotal - 1][0],
+    -topGrid.y + 500 + grid.gridNodes[grid.rowsTotal - 1][0][1]
   );
 
   //** CalcZone visual
@@ -1077,6 +1098,14 @@ function mouseReleased() {
   logGridNode = false;
   logGridOriginMove = false;
   logStringerInsertPoint = false;
+
+  //*Log node
+ nodeColLogged = null;
+ nodeRowLogged= null;
+  testLoadValue = 0;
+  testLoadVector.mult(0);
+
+  matrixLoad.DeleteTestLoad();
 
   for (let i = 0; i < result.insertPointStringerHor.length; i++) {
     result.insertPointStringerHor[i][1] = false;

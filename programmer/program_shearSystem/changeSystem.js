@@ -374,6 +374,74 @@ class ChangeSystem {
     }
   }
 
+  AddTestLoad(pos){
+    //if(button_TestLoad.state == -1 ) return;
+    if(nodeRowLogged == null || nodeColLogged == null) return;
+
+
+    /*
+       //** Highligt node
+    if (
+      grid.OverlapNode(pos) &&
+      button_AddLoad_Px.state == 1 &&
+      matrixLoad.matrixLoad[grid.rowNearest][grid.columnNearest].Px == 0
+    ) {
+      this.HighLigthNodeGreen();
+    }
+    */
+              let grid_x = grid.gridNodes[nodeRowLogged][nodeColLogged][0];
+      let grid_y = grid.gridNodes[nodeRowLogged][nodeColLogged][1];
+
+    let nodeVector = new p5.Vector(grid_x,grid_y);
+          testLoadVector = p5.Vector.sub(
+            pos,
+            nodeVector
+ 
+      );
+
+        //** Global value - testLoadValue
+      testLoadValue = nf(testLoadVector.mag() / 10, 0, 1);
+      let alfa = testLoadVector.heading();
+    
+      //console.log(grid_y)
+      //matrix_B[2 * logNodePosInArray] = [loadVector.x * 100];
+      //matrix_B[2 * logNodePosInArray + 1] = [loadVector.y * 100];
+//console.log("changeSystem line 408 - TestLoadVector.y " +  testLoadVector.y)
+    //** Set Load
+    matrixLoad.matrixLoad[nodeRowLogged][nodeColLogged].Px_Test = testLoadVector.x * 100
+    matrixLoad.matrixLoad[nodeRowLogged][nodeColLogged].Py_Test = testLoadVector.y * 100
+
+
+
+
+
+    
+        push();
+        strokeWeight(4);
+
+        line(
+          grid_x,
+          grid_y,
+          grid_x + 5* testLoadValue/1* cos(alfa),
+         grid_y +  5* testLoadValue/1 * sin(alfa)
+        );
+
+        let x_end = grid_x + 5* testLoadValue/1 * cos(alfa);
+        let y_end = grid_y + 5*testLoadValue/1* sin(alfa);
+        translate(x_end, y_end);
+        textSize(25);
+        text(testLoadValue + " kN", 20, 10);
+        rotate(alfa - PI / 2);
+        translate(-x_end, -y_end);
+        triangle(x_end, y_end, x_end - 10, y_end - 20, x_end + 10, y_end - 20);
+        pop();
+        
+      
+
+    
+   // console.log("changeSystem line 434 - TestLoadVector.x " +  testLoadVector.x)
+  }
+
   DeleteLoad(pos) {
     //** Highligt node
     if (

@@ -136,7 +136,6 @@ class Result {
 
     push();
     if (mouseIsPressed) {
-
       fill(0, 250, 0, 100);
       circle(insertPoint.x, insertPoint.y, 20);
 
@@ -1004,7 +1003,6 @@ class Result {
 
   //** 8
   AngleDef() {
-    
     for (let row = 0; row < skinSystem.rowsSkin; row++) {
       for (let col = 0; col < skinSystem.columnsSkin; col++) {
         if (skinSystem.skinMatrix[row][col].skinExist) {
@@ -1126,7 +1124,7 @@ class Result {
           */
           push();
           strokeWeight(4);
-          fill(50, 50, 50, 50);
+          fill(50, 50, 50, 20);
           //** TopLeft
           let p0x =
             grid.gridNodes[row][col][0] + scale * this.matrixDef[row][col][0];
@@ -1784,12 +1782,13 @@ class Result {
         let rigth = 0;
 
         //** Load
-        if (colGrid == 0)
+        if (colGrid == 0) {
           this.matrixStringerHorisontal[rowGrid][colGrid][0] +=
             matrixLoad.matrixLoad[rowGrid][colGrid].Px;
-        else
+        } else {
           this.matrixStringerHorisontal[rowGrid][colGrid][1] +=
             matrixLoad.matrixLoad[rowGrid][colGrid].Px;
+        }
 
         //** Support
         if (colGrid == 0)
@@ -1800,6 +1799,17 @@ class Result {
           this.matrixStringerHorisontal[rowGrid][
             colGrid
           ][1] += this.matrixReaction[rowGrid][colGrid][0];
+      }
+    }
+
+    //** TestLoad
+    if (nodeRowLogged != null || nodeColLogged != null) {
+      if (nodeColLogged == 0) {
+        this.matrixStringerHorisontal[nodeRowLogged][nodeColLogged][0] +=
+          matrixLoad.matrixLoad[nodeRowLogged][nodeColLogged].Px_Test / 1;
+      } else {
+        this.matrixStringerHorisontal[nodeRowLogged][nodeColLogged][1] +=
+          matrixLoad.matrixLoad[nodeRowLogged][nodeColLogged].Px_Test / 1;
       }
     }
 
@@ -1907,12 +1917,13 @@ class Result {
     for (let rowGrid = 0; rowGrid < grid.rowsTotal; rowGrid++) {
       for (let colGrid = 0; colGrid < grid.columnsTotal; colGrid++) {
         //** Load
-        if (rowGrid == 0)
+        if (rowGrid == 0) {
           this.matrixStringerVertical[rowGrid][colGrid][0] +=
             matrixLoad.matrixLoad[rowGrid][colGrid].Py;
-        else
+        } else {
           this.matrixStringerVertical[rowGrid][colGrid][1] +=
             matrixLoad.matrixLoad[rowGrid][colGrid].Py;
+        }
 
         //** Support
         if (rowGrid == 0)
@@ -1923,6 +1934,17 @@ class Result {
           this.matrixStringerVertical[rowGrid][
             colGrid
           ][1] += this.matrixReaction[rowGrid][colGrid][1];
+      }
+    }
+
+    //** TestLoad
+    if (nodeRowLogged != null || nodeColLogged != null) {
+      if (nodeRowLogged == 0) {
+        this.matrixStringerVertical[nodeRowLogged][nodeColLogged][0] +=
+          matrixLoad.matrixLoad[nodeRowLogged][nodeColLogged].Py_Test / 1;
+      } else {
+        this.matrixStringerVertical[nodeRowLogged][nodeColLogged][1] +=
+          matrixLoad.matrixLoad[nodeRowLogged][nodeColLogged].Py_Test / 1;
       }
     }
 
@@ -2935,23 +2957,23 @@ class Result {
           //** If forceUp = forceDown
           if (forceUpOfNode == forceDownOfNode) {
             if (forceUpOfNode != 0)
-            text(nf(-forceUpOfNode, 0, 2), p3x + adjustLeft, p3y);
+              text(nf(-forceUpOfNode, 0, 2), p3x + adjustLeft, p3y);
           }
           //** if jump in force on different side of line
           else if (forceUpOfNode * forceDownOfNode <= 0) {
             if (forceUpOfNode != 0)
-            text(
-              nf(-forceUpOfNode, 0, 2),
-              start_x + (forceUpOfNode * 100) / scaleStringer - adjustRigth,
-              start_y
-            );
+              text(
+                nf(-forceUpOfNode, 0, 2),
+                start_x + (forceUpOfNode * 100) / scaleStringer - adjustRigth,
+                start_y
+              );
 
             if (forceDownOfNode != 0)
-            text(
-              nf(-forceDownOfNode, 0, 2),
-              start_x + (forceDownOfNode * 100) / scaleStringer - adjustLeft,
-              start_y
-            );
+              text(
+                nf(-forceDownOfNode, 0, 2),
+                start_x + (forceDownOfNode * 100) / scaleStringer - adjustLeft,
+                start_y
+              );
           }
           //** If jump in force on same side of line
           else if (forceUpOfNode < 0 && forceDownOfNode < 0) {
