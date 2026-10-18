@@ -64,21 +64,29 @@ class Paper {
     textSize(100);
     textAlign(LEFT, BASELINE);
     textStyle(ITALIC);
-    text("ShearSystem", 350, 150);
+    text("Truss System", 350, 150);
 
     textSize(50);
-    text("Under development, ver. 1.3", 350, 250);
+    text("Under development, ver. 1.1", 350, 250);
 
     textSize(50);
-    text("12/10 - 2026", 1750, 150);
+    text("18/10 - 2026", 1750, 150);
+
+    //** WaterMark **
+    textSize(100);
+    rotate(-PI/8)
+    fill(0,0,0,100)
+    text("More features will be added soon...",0,1100)
+    
     pop();
   }
 
   DisplayText() {
     push();
     textSize(50);
-    text("Input Data", this.insertPoint.x + 350, this.insertPoint.y + 392.5);
-    text("Display", this.insertPoint.x + 750, this.insertPoint.y + 392.5);
+    text("Input Data", this.insertPoint.x + 400, this.insertPoint.y + 392.5);
+   // text("EigenValue", this.insertPoint.x + 950, this.insertPoint.y + 392.5);
+   // text("BeamReinforced", this.insertPoint.x + 950, this.insertPoint.y + 300 + 392.5);
     textAlign(CENTER);
     textSize(30);
     //text("ADD", this.insertPoint.x + 425, this.insertPoint.y + 440);

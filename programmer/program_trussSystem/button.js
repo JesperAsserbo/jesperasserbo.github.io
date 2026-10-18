@@ -180,17 +180,17 @@ class Button {
     line(
       this.pos1.x + 2.5,
       this.pos1.y - this.buttonHeight + 2.5,
-      this.pos1.x + 2 * buttonWidth - 2.5,
+      this.pos1.x + 1 * buttonWidth - 2.5,
       this.pos1.y - this.buttonHeight + 2.5
     );
     line(
-      this.pos1.x + 2 * buttonWidth - 2.5,
+      this.pos1.x + 1 * buttonWidth - 2.5,
       this.pos1.y - this.buttonHeight + 2.5,
-      this.pos1.x + 2 * buttonWidth - 2.5,
+      this.pos1.x + 1 * buttonWidth - 2.5,
       this.pos1.y - 2.5
     );
     line(
-      this.pos1.x + 2 * buttonWidth - 2.5,
+      this.pos1.x + 1 * buttonWidth - 2.5,
       this.pos1.y - 2.5,
       this.pos1.x + 2.5,
       this.pos1.y - 2.5
@@ -223,41 +223,49 @@ class Button {
   }
 
   DrawSupportFixed(posMouse) {
-    let r = 1;
-    let angle = 0;
-    //let posStart = new p5.Vector(this.posSupport.x, this.posSupport.y);
-    let pos;
-    let spiral = [];
-    spiral.push(posMouse);
+      let r = 1;
+      let angle = 0;
+      let posStart = new p5.Vector(posMouse.x, posMouse.y);
+      let pos;
+      let spiral = [];
+      spiral.push(posStart);
 
-    for (let i = 0; i < 12; i++) {
-      angle -= PI / 4;
-      r += 1;
-      pos = new p5.Vector(r * cos(angle), r * sin(angle));
-      spiral.push(p5.Vector.add(posMouse, pos));
-      //circle(spiral[i].x,spiral[i].y,2)
-    }
-    push();
+      for (let i = 0; i < 20; i++) {
+        angle -= PI / 8;
+        r += 0.5;
+        pos = new p5.Vector(r * cos(angle), r * sin(angle));
+        spiral.push(p5.Vector.add(posStart, pos));
+        //circle(spiral[i].x,spiral[i].y,2)
+      }
+      push();
+      
+     
 
-    strokeWeight(2);
-    for (let i = 1; i < spiral.length - 1; i++) {
-      line(spiral[i].x, spiral[i].y, spiral[i + 1].x, spiral[i + 1].y);
-    }
-    let lineEnd = new p5.Vector(posMouse.x - 20, spiral[spiral.length - 1].y);
+      strokeWeight(2);
+      
+   
+      for (let i = 1; i < spiral.length - 1; i++) {
+        line(spiral[i].x, spiral[i].y, spiral[i + 1].x, spiral[i + 1].y);
+      }
+    
+      
+     //let lineEnd = new p5.Vector(posStart.x - 20, spiral[spiral.length -1].y);
+      let lineEnd = new p5.Vector(spiral[spiral.length -1].x,posStart.y - 30);
 
-    line(
-      spiral[spiral.length - 1].x,
-      spiral[spiral.length - 1].y,
-      lineEnd.x,
-      lineEnd.y
-    );
-    fill(0);
-    rect(lineEnd.x - 2, lineEnd.y - 15, 1, 30);
-    circle(lineEnd.x - 8, lineEnd.y - 8, 5);
-    circle(lineEnd.x - 8, lineEnd.y + 8, 5);
-    //line(lineEnd.x,lineEnd.y+15,lineEnd.x,lineEnd.y-15)
-    //**Draw
+      line(
+        spiral[spiral.length - 1].x,
+        spiral[spiral.length - 1].y,
+        lineEnd.x,
+        lineEnd.y
+      );
+      fill(0);
+      circle(lineEnd.x , lineEnd.y , 8);
+      //rect(lineEnd.x - 15, lineEnd.y - 2, 30, 1);
+      //circle(lineEnd.x - 8, lineEnd.y - 8, 5);
+      //circle(lineEnd.x + 8, lineEnd.y - 8, 5);
+      //line(lineEnd.x,lineEnd.y+15,lineEnd.x,lineEnd.y-15)
+      //**Draw
 
-    pop();
+      pop();
   }
 }
