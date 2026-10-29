@@ -195,8 +195,8 @@ function setup() {
     (textMid = ""),
     (textPre = "mm"),
     (startValue = 100),
-    (minValue = 50),
-    (maxValue = 200)
+    (minValue = 40),
+    (maxValue = 300)
   );
 
   //**ButtonRollor_a1
