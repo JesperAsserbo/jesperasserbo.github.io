@@ -184,7 +184,6 @@ class Layout {
     pop();
     */
   }
-
   DisplayPlateLayout() {
     //** Plade **********************************
 

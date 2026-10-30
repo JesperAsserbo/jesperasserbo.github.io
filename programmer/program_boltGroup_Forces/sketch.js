@@ -480,7 +480,7 @@ function setup() {
     (textPro = ""),
     (buttonWidth = 40),
     (buttonHeight = 40),
-    (state = -1) //**-1 => OFF, +1 => ON
+    (state = 1) //**-1 => OFF, +1 => ON
   );
 
   buttonArray.push(button_NodeAdd, button_BoltDelete);

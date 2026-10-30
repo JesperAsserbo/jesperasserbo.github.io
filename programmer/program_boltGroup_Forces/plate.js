@@ -4,15 +4,15 @@ class Plate {
     this.fu = 360; //** S235
 
     this.edge = [
-      [5 * 10 + graph.insertPoint.x, 5 * 10 + graph.insertPoint.y],
-      [5 * 10 + graph.insertPoint.x, 40 * 10 + graph.insertPoint.y],
-      [5 * 10 + graph.insertPoint.x, 80 * 10 + graph.insertPoint.y],
+      [0 * 10 + graph.insertPoint.x, 0 * 10 + graph.insertPoint.y],
+      [0 * 10 + graph.insertPoint.x, 40 * 10 + graph.insertPoint.y],
+      [0 * 10 + graph.insertPoint.x, 80 * 10 + graph.insertPoint.y],
       [40 * 10 + graph.insertPoint.x, 80 * 10 + graph.insertPoint.y],
       [80 * 10 + graph.insertPoint.x, 80 * 10 + graph.insertPoint.y],
       [80 * 10 + graph.insertPoint.x, 40 * 10 + graph.insertPoint.y],
-      [80 * 10 + graph.insertPoint.x, 5 * 10 + graph.insertPoint.y],
-      [40 * 10 + graph.insertPoint.x, 5 * 10 + graph.insertPoint.y],
-      [5 * 10 + graph.insertPoint.x, 5 * 10 + graph.insertPoint.y],
+      [80 * 10 + graph.insertPoint.x, 0 * 10 + graph.insertPoint.y],
+      [40 * 10 + graph.insertPoint.x, 0 * 10 + graph.insertPoint.y],
+      [0 * 10 + graph.insertPoint.x, 0 * 10 + graph.insertPoint.y],
     ];
 
     this.xMax = 0;

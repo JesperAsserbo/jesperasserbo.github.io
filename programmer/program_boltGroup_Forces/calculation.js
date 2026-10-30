@@ -24,11 +24,18 @@ class Calculation {
     let fu = plate.fu;
     let gm2 = 1.35;
 
-    let factor = 2.5;
-    if (boltGroup.length < 2) factor = 1.5;
+    let result = 0;
+    let capacity = (boltGroup[0].d * plate.plate_t * plate.fu) / gm2;
+    if (boltGroup.length > 1)
+      result = min(distEdgeBolt.ab_min * distEdgeBolt.k1_min, 2.5);
+    else result = min(distEdgeBolt.ab_min * distEdgeBolt.k1_min, 1.5);
+    this.Fbrd = (result * capacity) / 1000;
 
-    this.factor_min = min(factor, abk1_min);
-    this.Fbrd = (this.factor_min * d * t * fu) / gm2 / 1000;
+    //let factor = 2.5;
+    //if (boltGroup.length < 2) factor = 1.5;
+
+    //this.factor_min = min(factor, abk1_min);
+    // this.Fbrd = (this.factor_min * d * t * fu) / gm2 / 1000;
 
     //** text Formular
     push();
@@ -36,26 +43,26 @@ class Calculation {
     textSize(30);
     textAlign(LEFT, CENTER);
     text("F", 0, 25 + 2.5);
-    text("=", 100, 25 + 2.5);
-    // text(factor, 160, 50 + 2.5);
+    text("=", 100, 25 + 2.5);;
 
     textAlign(LEFT, CENTER);
     textSize(22);
     text("b,rd", 20, 35 + 2.5);
 
+    //** 1 **
     //** abk1
     textSize(30);
     textAlign(CENTER, CENTER);
-    //text("\u21D2", 1000, 50);
     textAlign(LEFT, CENTER);
-    text("( \u03B1   k  )", 130, 25);
+    text("  \u03B1   k  ", 130, 0);
+    if (boltGroup.length > 1) text(nf(2.5, 0, 2), 150, 50);
+    else text(nf(1.5, 0, 2), 150, 50);
     text("         d t", 210, 25);
     text("f", 340, 10);
     strokeWeight(2);
     line(330, 25, 390, 25);
     text("\u03B3", 340, 40);
 
-    /*
     //** LINES
     line(130, -15, 130, 65);
     line(130, -15, 140, -15);
@@ -64,30 +71,57 @@ class Calculation {
     line(230, -15, 230, 65);
     line(220, -15, 230, -15);
     line(220, 65, 230, 65);
-    */
 
     textSize(22);
-    text("b", 167.5, 35 + 2.5);
-    text("1", 208, 35 + 2.5);
-    text("min.", 240, 40 + 2.5);
+    text("b", 167.5, 15 + 2.5);
+    text("1", 208, 15 + 2.5);
+    text("min.", 240, 60);
     text("u", 355, 15);
     text("M2", 355, 55);
 
+    //** 2 **
+    //** LINES
+    //** Translate
+    translate(0, 100);
+    line(130, -15, 130, 65);
+    line(130, -15, 140, -15);
+    line(130, 65, 140, 65);
+
+    line(290, -15, 290, 65);
+    line(280, -15, 290, -15);
+    line(280, 65, 290, 65);
+
+    textSize(30);
+    textAlign(LEFT, CENTER);
+    text("=", 100, 25 + 2.5);
+
+    //** Text numbers
+    text(nf(round(distEdgeBolt.ab_min, 2), 0, 2), 140, 0 + 2.5);
+    text("\u22C5", 205, 0 + 2.5);
+    text(nf(round(distEdgeBolt.k1_min, 2), 0, 2), 220, 0 + 2.5);
+    if (boltGroup.length > 1) text(nf(2.5, 0, 2), 180, 50);
+    else text(nf(1.5, 0, 2), 180, 50);
+    text("\u22C5", 300, 25 + 2.5);
+    text(boltGroup[0].d + " mm", 310, 25 + 2.5);
+    text("\u22C5", 410, 25 + 2.5);
+    text(plate.plate_t + " mm", 425, 25 + 2.5);
+    strokeWeight(2);
+    line(535, 25, 660, 25);
+    text(plate.fu + " MPa", 535, 5 + 2.5);
+    text("1.35", 565, 45 + 2.5);
+
+    textSize(22);
+    text("min.", 300, 60);
+
+    //** 3 **
     //** Text numbers
     textSize(30);
     text("=", 100, 125 + 2.5);
-    text(nf(round(distEdgeBolt.ab_min, 2), 0, 2), 130, 125 + 2.5);
+
+    text(nf(round(capacity / 1000, 1), 0, 1) + " kN", 220, 125 + 2.5);
+
+    text(nf(round(result, 2), 0, 2), 130, 125 + 2.5);
     text("\u22C5", 200, 125 + 2.5);
-    text(nf(round(distEdgeBolt.k1_min, 2), 0, 2), 220, 125 + 2.5);
-    text("\u22C5", 290, 125 + 2.5);
-    text(boltGroup[0].d + " mm", 310, 125 + 2.5);
-    text("\u22C5", 410, 125 + 2.5);
-    text(plate.plate_t + " mm", 425, 125 + 2.5);
-    // text("\u22C5", 460, 125 + 2.5 );
-    strokeWeight(2);
-    line(535, 125, 660, 125);
-    text(plate.fu + " MPa", 535, 105 + 2.5);
-    text("1.35", 565, 145 + 2.5);
 
     //** Text Result
     textAlign(LEFT, CENTER);
@@ -132,8 +166,6 @@ class Calculation {
     line(230, 25, 290, 25);
     text("\u03B3", 240, 40);
 
-    //text(nf(round(this.bolt_abk1, 2), 0, 2), 1160, 50);
-
     textSize(22);
     if (boltGroup[0].shearPlane != 2) text("s", 208, 35 + 2.5);
     text("v", 165, 35 + 2.5);
@@ -164,7 +196,6 @@ class Calculation {
 
     pop();
   }
-
   Tp() {
     let x_Tp = 0;
     let y_Tp = 0;
@@ -185,7 +216,6 @@ class Calculation {
       //console.log(boltGroup[bolt].r_Tp)
     }
   }
-
   CenterRotation() {
     let x_CR = 0;
     let y_CR = 0;
@@ -203,7 +233,6 @@ class Calculation {
 
     pop();
   }
-
   IpBoltGroup() {
     this.Ip = 0;
     for (let bolt in boltGroup) {
@@ -250,7 +279,6 @@ class Calculation {
       );
     }
   }
-
   Display_CR() {
     if (boltGroup.length < 2) return;
     this.insertPoint = graph.insertPoint;
@@ -297,7 +325,7 @@ class Calculation {
     );
     */
 
-    stroke(0,0,255,200);
+    stroke(0, 0, 255, 200);
     for (let bolt in boltGroup) {
       line(
         this.pos_CR_scaledGraph.x,
@@ -309,7 +337,6 @@ class Calculation {
 
     pop();
   }
-
   Display_Tp() {
     if (boltGroup.length < 2) return;
     this.insertPoint = graph.insertPoint;

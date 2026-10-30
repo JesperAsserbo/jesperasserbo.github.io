@@ -58,10 +58,12 @@ class DistEdgeBolt {
     this.bolt_abk1 = this.bolt_ab * this.bolt_k1;
 
     this.fub_fu = boltGroup[0].fub / plate.fu;
-    this.ab_min = min(this.edge_ab, this.bolt_ab, this.fub_fu, 1.0);
+    if(boltGroup.length>1)this.ab_min = min(this.edge_ab, this.bolt_ab, this.fub_fu, 1.0);
+    else this.ab_min = min(this.edge_ab,  this.fub_fu, 1.0);
     this.k1_min = min(this.edge_k1, this.bolt_k1, 2.5);
 
     //** If only one bolt
+    /*
     if (boltGroup.length < 2) {
       // this.ab_min = this.edge_ab;
       // this.k1_min = this.edge_k1;
@@ -70,6 +72,7 @@ class DistEdgeBolt {
       this.k1_min = min(this.edge_k1, this.bolt_k1, 1.5);
     }
     //console.log(this.k1_min)
+    */
   }
 
   //** called from Bolt()
@@ -445,8 +448,8 @@ class DistEdgeBolt {
     if (boltGroup.length > 1) text("k", 1160, 75);
     text("k", 1160, 125);
 
-    if (boltGroup.length < 2) text("1.50", 1160, 175);
-    else text("2.50", 1160, 175);
+   // if (boltGroup.length < 2) text("1.50", 1160, 175);
+    text("2.50", 1160, 175);
 
     text("=", 1100, 130);
     text("=", 1285, 130);
@@ -472,7 +475,7 @@ class DistEdgeBolt {
     textAlign(RIGHT);
     //** ab
     if (boltGroup.length > 1)
-      text(nf(round(this.bolt_ab, 2), 0, 2), 1425, -175);
+    text(nf(round(this.bolt_ab, 2), 0, 2), 1425, -175);
     text(nf(round(this.edge_ab, 2), 0, 2), 1425, -125);
     text(nf(round(this.fub_fu, 2), 0, 2), 1425, -75);
     text(nf(1, 0, 2), 1425, -25);
@@ -480,8 +483,8 @@ class DistEdgeBolt {
     //** k1
     if (boltGroup.length > 1) text(nf(round(this.bolt_k1, 2), 0, 2), 1425, 75);
     text(nf(round(this.edge_k1, 2), 0, 2), 1425, 125);
-    if (boltGroup.length < 2) text(nf(1.5, 0, 2), 1425, 175);
-    else text(nf(2.5, 0, 2), 1425, 175);
+    //if (boltGroup.length < 2) text(nf(1.5, 0, 2), 1425, 175);
+    text(nf(2.5, 0, 2), 1425, 175);
 
     //** Result
     textAlign(LEFT);

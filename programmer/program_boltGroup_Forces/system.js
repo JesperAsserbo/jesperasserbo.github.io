@@ -102,8 +102,7 @@ class System {
     if (button_Limit_Edge.state == 1) {
       for (let i = 0; i < boltGroup.length; i++) {
         if (boltGroup[i].pointsOnEdge.length > 0) {
-          
-          for (let j = 0; j < boltGroup[i].pointsOnEdge.length-1; j ++) {
+          for (let j = 0; j < boltGroup[i].pointsOnEdge.length - 1; j++) {
             let x = boltGroup[i].pointsOnEdge[j * 2];
             let y = boltGroup[i].pointsOnEdge[j * 2 + 1];
 
@@ -312,5 +311,4 @@ class System {
     circle(load.pos_Load_scaledGraph.x, load.pos_Load_scaledGraph.y, 50);
     pop();
   }
-
 }
