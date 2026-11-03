@@ -135,7 +135,8 @@ class Result {
     //** If logged => move node
 
     push();
-    if (mouseIsPressed) {
+    //** cant move tabel if gridNode overlaps tabel insertpoint
+    if (mouseIsPressed && !logGridNode) {
       fill(0, 250, 0, 100);
       circle(insertPoint.x, insertPoint.y, 20);
 
